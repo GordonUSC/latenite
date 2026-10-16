@@ -1,0 +1,395 @@
+<!doctype html>
+<!-- STYLE: Lighting desk cue stack (ETC Eos / grandMA cue list and the printed LD cue sheet) | WHY: the night was a light show with no screen, so the page runs like the desk that ran it: one cue, one color, one person, press GO | ALT: Tyvek wristband stack, rejected because it collapses into a card grid -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LATENITE, Cue by Cue</title>
+<meta name="description" content="ISOKNOCK b2b RL Grime at NiteHarts LATENITE, Pechanga Arena, October 11, 2026. Gordon's night, cue by cue, for the people he shares it with.">
+<meta property="og:title" content="LATENITE, Cue by Cue">
+<meta property="og:description" content="Press GO. The room relights, one cue at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --room:#141210; --glow:#b0010f; --desk:#0d0d0e; --deskline:#2a2a2d; --ink:#f3efe8; --dim:#a39d94;
+  --amber:#ffb000; --go:#1fbf4a; --strip:#1b1b1d;
+  --cond:"Archivo", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--room);color:var(--ink)}
+body{font-family:var(--cond);font-stretch:100%;line-height:1.4;-webkit-font-smoothing:antialiased}
+a{color:var(--ink)}
+.skip{position:absolute;left:-999px}.skip:focus{left:16px;top:16px;z-index:9;background:#000;padding:8px}
+
+/* STAGE: the room. Color comes from the cue. */
+.stage{position:relative;min-height:62vh;overflow:hidden;background:var(--room);transition:background-color 1.6s ease}
+.stage .wash{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 0%, var(--glow) 0%, transparent 62%);opacity:.85;transition:background 1.6s ease, opacity .2s}
+.stage .still{position:absolute;inset:0;background-size:cover;background-position:center 30%;mix-blend-mode:screen;opacity:.0;transition:opacity 1.2s ease}
+.stage .beams{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.75}
+.beams line{stroke:var(--glow);stroke-width:7;stroke-linecap:round;filter:blur(3px)}
+.beams g{transform-origin:50% 0%;animation:sweep 7s ease-in-out infinite alternate}
+.beams g:nth-child(2){animation-duration:9s;animation-direction:alternate-reverse}
+@keyframes sweep{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+.stage.black .wash,.stage.black .still,.stage.black .beams{opacity:0;transition:opacity .15s}
+.stage .floor{position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(transparent, rgba(0,0,0,.85))}
+
+.marquee{position:relative;z-index:2;padding:22px 16px 0;max-width:1100px;margin:0 auto}
+.marquee h1{margin:0;font-stretch:125%;font-weight:900;font-size:clamp(46px,11vw,132px);line-height:.86;letter-spacing:-.01em;text-transform:uppercase;text-shadow:0 0 40px rgba(0,0,0,.35)}
+.marquee h1 .sm{display:block;font-stretch:62%;font-weight:600;font-size:.26em;letter-spacing:.02em;text-transform:none;margin-top:10px}
+.now{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:18px 16px 26px}
+.now .clock{font-stretch:62%;font-weight:800;font-size:clamp(56px,14vw,150px);line-height:.9;font-variant-numeric:tabular-nums}
+.now .what{font-stretch:75%;font-weight:700;font-size:clamp(20px,3.6vw,34px);line-height:1.1;max-width:22ch}
+.now .for{margin-top:12px;font-size:clamp(17px,2.4vw,22px);max-width:38ch}
+.now .for b{font-weight:800}
+.plan{position:absolute;right:16px;top:18px;z-index:2;width:92px;height:66px}
+.plan ellipse{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5}
+.plan rect{fill:rgba(255,255,255,.75)}
+.plan circle{fill:var(--amber)}
+.plan text{fill:rgba(255,255,255,.8);font:600 8px var(--cond)}
+
+/* DESK */
+.desk{background:var(--desk);border-top:3px solid #000;box-shadow:inset 0 1px 0 #333}
+.deskin{max-width:1100px;margin:0 auto;padding:14px 16px 28px}
+.controls{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:stretch}
+.strip{background:var(--strip);border:1px solid var(--deskline);padding:10px 12px;min-height:64px}
+.strip .lab{color:var(--dim);font-size:13px;font-stretch:62%;font-weight:600}
+.strip .val{font-size:20px;font-weight:800;font-stretch:75%}
+.btns{display:flex;gap:8px}
+.key{appearance:none;border:0;cursor:pointer;font:inherit;color:#111;font-weight:900;font-stretch:62%;letter-spacing:.04em;border-radius:6px;min-width:72px;min-height:64px;padding:0 14px;box-shadow:0 4px 0 #000, inset 0 -3px 0 rgba(0,0,0,.25)}
+.key:active{transform:translateY(3px);box-shadow:0 1px 0 #000}
+.key:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.go{background:var(--go);font-size:30px;min-width:120px}
+.back{background:#6d6a66;font-size:18px}
+.drop{background:var(--amber);font-size:16px;line-height:1.05}
+.snd{background:#3a3a3e;color:#ddd;font-size:14px}
+.hint{color:var(--dim);font-size:14px;margin:8px 0 0}
+
+.bands{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 4px}
+.band{appearance:none;font:inherit;cursor:pointer;border:0;border-radius:2px;padding:7px 12px 7px 10px;font-weight:800;font-stretch:75%;font-size:15px;color:#111;background:var(--b,#ddd);clip-path:polygon(0 0,100% 0,100% 100%,0 100%,6px 50%)}
+.band:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+ol.cues{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--deskline)}
+.cue{display:grid;grid-template-columns:58px 104px 1fr;gap:10px;padding:12px 6px;border-bottom:1px solid var(--deskline);cursor:pointer}
+.cue .q{font-stretch:62%;font-weight:900;font-size:26px;color:var(--dim)}
+.cue .t{font-stretch:62%;font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;padding-top:4px}
+.cue .sw{display:inline-block;width:12px;height:12px;background:var(--c);margin-right:6px;vertical-align:middle}
+.cue h3{margin:2px 0 4px;font-size:19px;font-stretch:80%;font-weight:800;line-height:1.15}
+.cue p{margin:0;color:#d8d2c8;font-size:16px;max-width:62ch}
+.cue .src{color:var(--dim);font-size:13px;margin-top:4px}
+.cue[aria-current="true"]{background:#1d1c1a;box-shadow:inset 4px 0 0 var(--go)}
+.cue[aria-current="true"] .q{color:var(--go)}
+
+.house{max-width:1100px;margin:0 auto;padding:40px 16px 60px}
+.house h2{font-stretch:125%;font-weight:900;font-size:clamp(30px,6vw,60px);line-height:.95;margin:0 0 14px;text-transform:uppercase}
+.house p{font-size:19px;max-width:44ch;margin:0 0 14px}
+.house .sig{font-weight:800;font-size:22px}
+.credits{color:var(--dim);font-size:13px;max-width:70ch;margin-top:28px}
+@media (max-width:640px){
+  .controls{grid-template-columns:1fr;position:sticky;bottom:0;z-index:5;background:var(--desk);padding:8px 0 10px;margin:0 -16px;padding-left:16px;padding-right:16px;border-top:1px solid #000}
+  .stage{min-height:56vh}
+  .btns{justify-content:space-between}
+  .key{flex:1;min-width:0}
+  .cue{grid-template-columns:40px 1fr}
+  .cue .t{grid-column:2}
+  .cue .body{grid-column:1 / -1}
+  .plan{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .beams g{animation:none}
+  .stage,.stage .wash,.stage .still{transition:none}
+}
+
+.hist{background:#0b0b0c;border-top:1px solid #222}
+.histin{max-width:1100px;margin:0 auto;padding:36px 16px 20px}
+.hist h2{font-stretch:125%;font-weight:900;font-size:clamp(30px,6vw,60px);line-height:.95;margin:0 0 10px;text-transform:uppercase}
+.hist .lede{font-size:18px;max-width:52ch;margin:0 0 14px;color:#d8d2c8}
+.tally{display:flex;flex-wrap:wrap;gap:18px;margin:0 0 10px;font-stretch:75%;font-size:18px}
+.tally b{font-size:34px;font-stretch:62%;font-weight:900;margin:0 6px 0 4px}
+.tally i,.dots i{display:inline-block;width:10px;height:10px;background:var(--d);vertical-align:middle}
+.you{min-height:1.5em;font-weight:800;font-size:20px;margin:6px 0 8px;color:var(--amber)}
+ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
+.nights .yr{font-stretch:62%;font-weight:900;font-size:28px;color:#6d6a66;margin:18px 0 4px -2px;padding-left:12px;border-left:2px solid #6d6a66}
+.nt{display:grid;grid-template-columns:62px 44px 1fr;gap:4px 10px;padding:8px 8px 8px 12px;cursor:pointer;transition:opacity .3s, background .3s}
+.nt .nd{font-stretch:62%;font-weight:700;font-variant-numeric:tabular-nums}
+.nt .dots{display:flex;gap:3px;padding-top:5px}
+.nt .ne{font-size:16px}
+.nt em{font-style:normal;color:#a39d94;font-size:13px;border:1px solid #444;padding:0 4px;margin-left:4px}
+.nt .wh{color:#a39d94}
+.nt .qt{grid-column:3;color:#cfc8bd;font-size:15px;font-style:italic}
+.nt:focus-visible{outline:2px solid #fff}
+.nights.lit .nt{opacity:.28}
+.nights.lit .nt.on{opacity:1;background:#1d1c1a;box-shadow:inset 3px 0 0 var(--amber)}
+.hist .fine{color:#a39d94;font-size:13px;margin-top:18px;max-width:70ch}
+@media (max-width:640px){.nt{grid-template-columns:52px 1fr}.nt .dots{grid-column:2;grid-row:1;justify-self:end}.nt .ne,.nt .qt{grid-column:1 / -1}}
+</style>
+</head>
+<body>
+<a class="skip" href="#cues">Skip to the cue sheet</a>
+
+<section class="stage" id="stage" aria-label="The room">
+  <div class="wash"></div>
+  <div class="still" id="still" role="img" aria-label=""></div>
+  <svg class="beams" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
+    <g><line x1="30" y1="-2" x2="12" y2="62"/><line x1="50" y1="-2" x2="50" y2="62"/><line x1="70" y1="-2" x2="88" y2="62"/></g>
+    <g><line x1="40" y1="-2" x2="22" y2="62"/><line x1="60" y1="-2" x2="78" y2="62"/></g>
+  </svg>
+  <div class="floor"></div>
+  <svg class="plan" viewBox="0 0 92 66" aria-hidden="true"><ellipse cx="46" cy="33" rx="43" ry="29"/><rect x="40" y="28" width="12" height="10"/><circle id="dot" cx="46" cy="46" r="4"/><text x="4" y="64" id="plantext">floor</text></svg>
+  <header class="marquee">
+    <h1>LATENITE<span class="sm">ISOKNOCK b2b RL GRIME, Pechanga Arena, San Diego. Sunday, October 11, 2026.</span></h1>
+  </header>
+  <div class="now" aria-live="polite">
+    <div class="clock" id="clock">10:00 PM</div>
+    <div class="what" id="what">Doors. We HAVE to get Brownies and Lemonade San Diego tickets.</div>
+    <div class="for" id="for">That was me in August, in caps. We got them.</div>
+  </div>
+</section>
+
+<section class="desk" aria-label="Light desk">
+ <div class="deskin">
+  <div class="controls">
+    <div class="strip"><div class="lab">Cue</div><div class="val" id="strip">Q0 House. Press GO.</div></div>
+    <div class="btns">
+      <button class="key back" id="back" type="button" aria-label="Previous cue">BACK</button>
+      <button class="key drop" id="drop" type="button" aria-label="Hold for the drop, release to let it go">HOLD<br>DROP</button>
+      <button class="key snd" id="snd" type="button" aria-pressed="false">SOUND OFF</button>
+      <button class="key go" id="go" type="button" aria-label="Next cue">GO</button>
+    </div>
+  </div>
+  <p class="hint">Space or Enter is GO. Hold the D key (or the DROP button) through the breakdown, then let go.</p>
+
+  <div class="bands" aria-label="Find your cue">
+    <button class="band" style="--b:#7fd3ff" data-q="6">Brennan</button>
+    <button class="band" style="--b:#ff8fc2" data-q="8">Mason</button>
+    <button class="band" style="--b:#f4f4f4" data-q="10">Quinn</button>
+    <button class="band" style="--b:#2bd06a" data-q="12">Michelle</button>
+    <button class="band" style="--b:#d7f03a" data-q="11">Vermillion</button>
+    <button class="band" style="--b:#ffb000" data-q="13">Foster</button>
+    <button class="band" style="--b:#3fe08f" data-q="14">Sable Valley</button>
+    <button class="band" style="--b:#ff4a5a" data-q="15">Kelly</button>
+    <button class="band" style="--b:#b48cff" data-q="15">Kara</button>
+  </div>
+
+  <ol class="cues" id="cues">
+    <li class="cue" data-c="#2a2420" data-src="bowl" tabindex="0">
+      <div class="q">Q0</div><div class="t"><span class="sw" style="--c:#2a2420"></span>10:00 PM</div>
+      <div class="body"><h3>House lights. Doors.</h3><p>NiteHarts LATENITE, the official closing party, produced by Brownies and Lemonade. Alison Wonderland, Hamdi b2b Flava D, ISOKNOCK b2b RL Grime, Nitepunk b2b borne, No Signal, Rocket Rese.</p></div>
+    </li>
+    <li class="cue" data-c="#d8d2cc" data-img="img/c1-2336.jpg" data-alt="White haze over the empty floor by the DJ riser, from my phone" data-src="floor" tabindex="0">
+      <div class="q">Q1</div><div class="t"><span class="sw" style="--c:#d8d2cc"></span>11:36 PM</div>
+      <div class="body"><h3>Room to move.</h3><p>The floor was still half empty. Haze, the rail, the riser in the middle of the room. Early is a gift. You get to pick your spot.</p><p class="src">My video, 11:36 PM.</p></div>
+    </li>
+    <li class="cue" data-c="#ff5a1a" data-img="img/c2-2340.jpg" data-alt="Orange light on the riser, a performer with arms up, from my phone" data-src="floor" tabindex="0">
+      <div class="q">Q2</div><div class="t"><span class="sw" style="--c:#ff5a1a"></span>11:40 PM</div>
+      <div class="body"><h3>Rocket Rese, "MISS MY CHOPPA"</h3><p>All orange. The rage set before the rage set.</p><p class="src">My video, 11:40 PM. Track by Shazam.</p></div>
+    </li>
+    <li class="cue" data-c="#2b1a6e" data-src="floor" tabindex="0">
+      <div class="q">Q3</div><div class="t"><span class="sw" style="--c:#2b1a6e"></span>about 1:00 AM</div>
+      <div class="body"><h3>ISOKNOCK b2b RL GRIME. "Scylla."</h3><p>Three DJs, one riser. Back to back means acts trading songs on one set of decks, and ISOxo and Knock2, who built this whole festival, traded with RL Grime for 77 minutes.</p><p class="src">Opener from the 1001Tracklists list. Start time is my estimate from the tracks in my videos.</p></div>
+    </li>
+    <li class="cue" data-c="#c21a8a" data-img="img/c3-0105.jpg" data-alt="Purple and pink light over a packed floor, from my phone" data-src="floor" tabindex="0">
+      <div class="q">Q4</div><div class="t"><span class="sw" style="--c:#c21a8a"></span>1:05 AM</div>
+      <div class="body"><h3>Packed.</h3><p>Purple into pink into white. Twenty minutes ago there was room to move. Now there is only room to jump.</p><p class="src">My video, 1:05 AM.</p></div>
+    </li>
+    <li class="cue" data-c="#e0301a" data-img="img/c4-0109.jpg" data-alt="Red beams fanning over the crowd, from my phone" data-src="floor" tabindex="0">
+      <div class="q">Q5</div><div class="t"><span class="sw" style="--c:#e0301a"></span>1:09 AM</div>
+      <div class="body"><h3>Ken Carson, "Yale"</h3><p>Red beams, fanned out like fingers. Track 22 of the set.</p><p class="src">My video, 1:09 AM. Shazam twice.</p></div>
+    </li>
+    <li class="cue" data-c="#7fd3ff" data-src="floor" data-who="Brennan" tabindex="0">
+      <div class="q">Q6</div><div class="t"><span class="sw" style="--c:#7fd3ff"></span>about 1:10 AM</div>
+      <div class="body"><h3>"4EVR." For Brennan.</h3><p>Next on the list after "Yale." One year ago tonight, October 11, 2025, we were at NiteHarts for your birthday. This year they played "4EVR," the anthem of the San Diego shows that grew into this festival. You weren't on the floor this time, so I'm sending you the floor.</p><p class="src">Order from the tracklist, so the time is approximate.</p></div>
+    </li>
+    <li class="cue" data-c="#d7f03a" data-img="img/c5-0123a.jpg" data-alt="Yellow-green beam fans over raised hands, from my phone" data-src="floor" tabindex="0">
+      <div class="q">Q7</div><div class="t"><span class="sw" style="--c:#d7f03a"></span>1:23 AM</div>
+      <div class="body"><h3>"Just Wanna Rock," the ISOxo and Knock2 edit</h3><p>Yellow-green fans, then pink lasers, then blue. Three colors in one minute.</p><p class="src">My video, 1:23 AM. Shazam.</p></div>
+    </li>
+    <li class="cue" data-c="#ff2a3a" data-src="bowl" data-yt="15" data-who="Mason" tabindex="0">
+      <div class="q">Q8</div><div class="t"><span class="sw" style="--c:#ff2a3a"></span>about 1:28 AM</div>
+      <div class="body"><h3>RL Grime, "Core." For Mason.</h3><p>The room goes red. First EDC, 2016, the first time for both of us. And the pink RL Grime jersey you gave me. People stop me and I get to talk about my best friend!!</p><p class="src">From here on, the fan video from the bowl. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=15s">Watch this moment</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#d9a090" data-src="bowl" data-yt="375" tabindex="0">
+      <div class="q">Q9</div><div class="t"><span class="sw" style="--c:#d9a090"></span>about 1:34 AM</div>
+      <div class="body"><h3>"Clarity," and everybody sings.</h3><p>A Zedd vocal from 2012 over a drop from 2026. Ten thousand phones in the air, all of us suddenly the same age.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=375s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#f4f4f4" data-src="bowl" data-yt="960" data-who="Quinn" tabindex="0">
+      <div class="q">Q10</div><div class="t"><span class="sw" style="--c:#f4f4f4"></span>about 1:43 AM</div>
+      <div class="body"><h3>"SMACK TALK." For Quinn.</h3><p>The one track all three of them made together. A back to back is a friendly rivalry with the whole room as the trophy. Quinn, you hosted me, you stood next to me, and you know a little smack talk is how we say we love each other. QUINNAFTA Cup rules.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=960s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#d7f03a" data-src="bowl" data-yt="1545" data-who="Vermillion" tabindex="0">
+      <div class="q">Q11</div><div class="t"><span class="sw" style="--c:#d7f03a"></span>about 1:53 AM</div>
+      <div class="body"><h3>Knock2, "sound di alarm." For Vermillion.</h3><p>Dave, Knock2 was our last LA show, and Knock2 in SF was our first show living together. Brownies and Lemonade put on this whole night, and you and I have been doing B&amp;L since their second show. Ride or Diespacio.</p><p class="src">Shazam on the fan video. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=1545s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#16b04e" data-src="bowl" data-yt="1650" data-who="Michelle" tabindex="0">
+      <div class="q">Q12</div><div class="t"><span class="sw" style="--c:#16b04e"></span>about 1:55 AM</div>
+      <div class="body"><h3>The green stretch. For Michelle.</h3><p>For five straight minutes the whole arena turned green. Sable Valley green. Rally towel green. RLChelle, you weren't in the building, and it still looked like your towels took it over. Right in the middle of it, Knock2's remix of RL's "Tell Me."</p><p class="src">Color measured from the fan video, 27:30 to 31:30. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=1650s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#ffb000" data-src="bowl" data-yt="2085" data-who="Foster" data-drop="1" tabindex="0">
+      <div class="q">Q13</div><div class="t"><span class="sw" style="--c:#ffb000"></span>about 2:02 AM</div>
+      <div class="body"><h3>"Satisfaction," then black. For Foster.</h3><p>Benny Benassi, then the lights go out for a breath, then the bass comes back with everything. No screen all night. Just haze, beams and one color at a time. FANGSPEARE, this is the room your music is going to light. Hold DROP here.</p><p class="src">Breakdown and slam measured at 35:00 and 35:30 in the fan video. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2085s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#3fe08f" data-src="bowl" data-yt="2520" data-who="Sable Valley" tabindex="0">
+      <div class="q">Q14</div><div class="t"><span class="sw" style="--c:#3fe08f"></span>about 2:09 AM</div>
+      <div class="body"><h3>RL Grime, "I Wanna Know." For my Sable Valley family.</h3><p>Sable Valley is the Motown of electronic dance music, and you are the reason it feels like family. From the Discord to the livestream watch parties to every rail since. The loudest moment of the last hour was an RL Grime song.</p><p class="src">Low-end peak measured at 42:00 in the fan video. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2520s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#ff2a3a" data-src="bowl" data-yt="2625" data-who="Kelly and Kara" tabindex="0">
+      <div class="q">Q15</div><div class="t"><span class="sw" style="--c:#ff2a3a"></span>about 2:11 AM</div>
+      <div class="body"><h3>ISOxo, "dontstopme!" For Kelly and Kara.</h3><p>The ISOxo corner of my life. I filmed you two at RL Grime at ACL in 2019, three years before we met. This time I didn't need luck to find you. You were right next to me.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2625s">Watch</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#5a5fd0" data-src="bowl" data-yt="2850" tabindex="0">
+      <div class="q">Q16</div><div class="t"><span class="sw" style="--c:#5a5fd0"></span>about 2:15 AM</div>
+      <div class="body"><h3>ISOxo, "F**K THE SPEAKERZ UP."</h3><p>Last track. Seventy-seven minutes, eighty-one songs, three people trading one room.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2850s">Watch the close</a>.</p></div>
+    </li>
+    <li class="cue" data-c="#f2c94c" data-src="bowl" tabindex="0">
+      <div class="q">Q17</div><div class="t"><span class="sw" style="--c:#f2c94c"></span>2:15 AM</div>
+      <div class="body"><h3>Alison Wonderland.</h3><p>My first EDC artist walks on right after. Ten years of these nights, and the first one shows up to close the last one.</p></div>
+    </li>
+  </ol>
+ </div>
+</section>
+
+<!--HISTORY-->
+<section class="hist" aria-label="Every night that led here">
+ <div class="histin">
+  <h2>The show file.</h2>
+  <p class="lede">Every night in my records with RL Grime, ISOxo, Knock2 or Sable Valley, from 2018 to LATENITE. Tap a name above to light up your nights. Tap a night to recall it on the stage.</p>
+  <p class="tally"><span><i style="--d:#ff2a3a"></i><b>27</b> RL Grime</span><span><i style="--d:#b48cff"></i><b>10</b> ISOxo</span><span><i style="--d:#d7f03a"></i><b>11</b> Knock2</span><span><i style="--d:#2bd06a"></i><b>5</b> Sable Valley</span></p>
+  <p class="you" id="you" aria-live="polite"></p>
+  <ol class="nights" id="nights">
+<li class="yr" aria-hidden="true">2018</li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Dec 31, 2018"><span class="nd">Dec 31</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Countdown NYE</b>, San Bernardino</span><span class="qt">"We&#x27;re doing like 20 of RL then Zedd."</span></li>
+<li class="yr" aria-hidden="true">2019</li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="May 15, 2019"><span class="nd">May 15</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at Intrigue, EDC Week</b>, Las Vegas</span><span class="qt">"RL Grime At Intrigue!!"</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="May 25, 2019"><span class="nd">May 25</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at Exchange LA</b>, Los Angeles</span><span class="qt">"RL Grime was everything."</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Aug 3, 2019"><span class="nd">Aug 3</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>HARD Summer</b>, Fontana</span></li>
+<li class="nt" tabindex="0" data-p="Kelly Kara" data-c="#ff2a3a" data-d="Oct 4, 2019"><span class="nd">Oct 4</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Austin City Limits</b>, Austin <span class=wh>Kelly and Kara in the crowd</span></span><span class="qt">Kelly and Kara were in that crowd. I found my video of them three years later.</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Nov 9, 2019"><span class="nd">Nov 9</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>EDC Orlando</b>, Orlando</span><span class="qt">"Seeing RL for my birthday!"</span></li>
+<li class="nt" tabindex="0" data-p="Sable Valley" data-c="#ff2a3a" data-d="Nov 13, 2019"><span class="nd">Nov 13</span><span class="dots" aria-label="RL Grime, Knock2, Sable Valley"><i style="--d:#ff2a3a" title="RL Grime"></i><i style="--d:#d7f03a" title="Knock2"></i><i style="--d:#2bd06a" title="Sable Valley"></i></span><span class="ne"><b>Sable Valley LA, The 1720</b>, Los Angeles</span><span class="qt">"That first show was Knock2 opening for Graves at 1720."</span></li>
+<li class="yr" aria-hidden="true">2020</li>
+<li class="nt" tabindex="0" data-p="Sable Valley" data-c="#2bd06a" data-d="May 30, 2020"><span class="nd">May 30</span><span class="dots" aria-label="Sable Valley"><i style="--d:#2bd06a" title="Sable Valley"></i></span><span class="ne"><b>The first Sable Valley livestream</b>, A Zoom room, everywhere <em>stream</em></span><span class="qt">Lockdown. I hosted the watch party so the family could rave from home.</span></li>
+<li class="yr" aria-hidden="true">2021</li>
+<li class="nt" tabindex="0" data-p="Sable Valley" data-c="#2bd06a" data-d="Jul 30, 2021"><span class="nd">Jul 30</span><span class="dots" aria-label="Sable Valley"><i style="--d:#2bd06a" title="Sable Valley"></i></span><span class="ne"><b>A Sable Valley night before HARD</b>, Los Angeles</span></li>
+<li class="nt" tabindex="0" data-p="Sable Valley" data-c="#ff2a3a" data-d="Oct 28, 2021"><span class="nd">Oct 28</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Halloween X</b>, Hollywood Palladium</span><span class="qt">"The hardcore RL fans from the internet just recognized me and pulled me in dead center, no pushing. #bestlife"</span></li>
+<li class="nt" tabindex="0" data-p="Brennan" data-c="#ff2a3a" data-d="Nov 5, 2021"><span class="nd">Nov 5</span><span class="dots" aria-label="RL Grime, Sable Valley"><i style="--d:#ff2a3a" title="RL Grime"></i><i style="--d:#2bd06a" title="Sable Valley"></i></span><span class="ne"><b>RL Grime, Juelz and Montell2099</b>, Brooklyn <span class=wh>with Brennan</span></span><span class="qt">My RL pilgrimage. Brennan got the tickets.</span></li>
+<li class="nt" tabindex="0" data-p="Vermillion" data-c="#b48cff" data-d="Nov 24, 2021"><span class="nd">Nov 24</span><span class="dots" aria-label="ISOxo, Knock2"><i style="--d:#b48cff" title="ISOxo"></i><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>Surprise ISOxo, then Knock2</b>, Los Angeles <em>likely</em> <span class=wh>with Vermillion</span></span><span class="qt">"It is a surprise ISOxo."</span></li>
+<li class="nt" tabindex="0" data-p="Brennan" data-c="#ff2a3a" data-d="Dec 31, 2021"><span class="nd">Dec 31</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Countdown NYE</b>, Southern California <span class=wh>with Brennan</span></span><span class="qt">"RL Grime is the anchor for me."</span></li>
+<li class="yr" aria-hidden="true">2022</li>
+<li class="nt" tabindex="0" data-p="Mason" data-c="#ff2a3a" data-d="Feb 10, 2022"><span class="nd">Feb 10</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at Exchange LA</b>, Los Angeles <span class=wh>with Mason</span></span><span class="qt">"We are at RL Grimer."</span></li>
+<li class="nt" tabindex="0" data-p="Brennan" data-c="#ff2a3a" data-d="Feb 18, 2022"><span class="nd">Feb 18</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>ILLfest, RL Grime b2b Baauer</b>, Austin <span class=wh>with Brennan</span></span></li>
+<li class="nt" tabindex="0" data-p="Brennan Foster" data-c="#b48cff" data-d="Mar 26, 2022"><span class="nd">Mar 26</span><span class="dots" aria-label="ISOxo"><i style="--d:#b48cff" title="ISOxo"></i></span><span class="ne"><b>Ultra Miami, a surprise ISOxo set</b>, Miami <span class=wh>with Brennan, Foster</span></span><span class="qt">Brennan&#x27;s first Ultra, and Foster with us.</span></li>
+<li class="nt" tabindex="0" data-p="Brennan Vermillion" data-c="#d7f03a" data-d="May 21, 2022"><span class="nd">May 21</span><span class="dots" aria-label="Knock2"><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>EDC Las Vegas</b>, Las Vegas <span class=wh>with Brennan, Vermillion</span></span><span class="qt">"Knock2 is killing it here."</span></li>
+<li class="nt" tabindex="0" data-p="Kelly Kara" data-c="#b48cff" data-d="Jul 30, 2022"><span class="nd">Jul 30</span><span class="dots" aria-label="ISOxo"><i style="--d:#b48cff" title="ISOxo"></i></span><span class="ne"><b>HARD Summer</b>, Los Angeles <span class=wh>Kelly and Kara there that weekend</span></span><span class="qt">"Lots of space here for ISOXO!"</span></li>
+<li class="nt" tabindex="0" data-p="Brennan Vermillion" data-c="#d7f03a" data-d="Aug 6, 2022"><span class="nd">Aug 6</span><span class="dots" aria-label="Knock2"><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>Knock2, sold out</b>, San Francisco <span class=wh>with Brennan, Vermillion</span></span><span class="qt">Dave&#x27;s first show living in SF.</span></li>
+<li class="nt" tabindex="0" data-p="Brennan" data-c="#ff2a3a" data-d="Oct 27, 2022"><span class="nd">Oct 27</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Halloween XI: Dead Space</b>, Kia Forum <span class=wh>with Brennan</span></span><span class="qt">"BrenBren heading to the Forum."</span></li>
+<li class="nt" tabindex="0" data-p="Kelly Kara" data-c="#ff2a3a" data-d="Oct 29, 2022"><span class="nd">Oct 29</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Second Sky</b>, Oakland <span class=wh>with Kelly, Kara</span></span><span class="qt">"Skrillex into G Jones b2b Virtual Self into RL Grime."</span></li>
+<li class="nt" tabindex="0" data-p="Kelly Kara Vermillion" data-c="#b48cff" data-d="Nov 26, 2022"><span class="nd">Nov 26</span><span class="dots" aria-label="ISOxo"><i style="--d:#b48cff" title="ISOxo"></i></span><span class="ne"><b>ISOxo tour, final night</b>, The Shrine, LA <span class=wh>with Kelly, Kara, Vermillion</span></span><span class="qt">"Our 4th show together."</span></li>
+<li class="yr" aria-hidden="true">2023</li>
+<li class="nt" tabindex="0" data-p="Sable Valley Vermillion" data-c="#ff2a3a" data-d="Jul 6, 2023"><span class="nd">Jul 6</span><span class="dots" aria-label="RL Grime, Sable Valley"><i style="--d:#ff2a3a" title="RL Grime"></i><i style="--d:#2bd06a" title="Sable Valley"></i></span><span class="ne"><b>Sable Valley x Brownies and Lemonade</b>, Echoplex, LA <span class=wh>with Sable Valley, Vermillion</span></span><span class="qt">"TFW you buy a ticket to the sold out pop up."</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Jul 20, 2023"><span class="nd">Jul 20</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Shambhala</b>, Salmo, British Columbia</span><span class="qt">An RL set in a forest in the mountains.</span></li>
+<li class="nt" tabindex="0" data-p="Brennan" data-c="#b48cff" data-d="Aug 6, 2023"><span class="nd">Aug 6</span><span class="dots" aria-label="ISOxo, Knock2"><i style="--d:#b48cff" title="ISOxo"></i><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>HARD Summer, ISOxo and Knock2</b>, Los Angeles <span class=wh>with Brennan</span></span><span class="qt">"Deep in the VIP for KNOCK2 with BrenBren."</span></li>
+<li class="nt" tabindex="0" data-p="Kelly Kara" data-c="#ff8fc2" data-d="Nov 18, 2023"><span class="nd">Nov 18</span><span class="dots" aria-label="ISOKNOCK"><i style="--d:#ff8fc2" title="ISOKNOCK"></i></span><span class="ne"><b>ISOKNOCK 4</b>, The Shrine, LA <span class=wh>with Kelly, Kara</span></span><span class="qt">"It was SO cool being IN the ISOxo Knock2 show!!!"</span></li>
+<li class="nt" tabindex="0" data-p="Vermillion" data-c="#ff2a3a" data-d="Nov 24, 2023"><span class="nd">Nov 24</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime Presents PLAYlive</b>, Ontario, California <span class=wh>with Vermillion</span></span><span class="qt">The pink RL Grime jersey, out for the album show.</span></li>
+<li class="yr" aria-hidden="true">2024</li>
+<li class="nt" tabindex="0" data-p="Mason" data-c="#ff2a3a" data-d="Mar 2, 2024"><span class="nd">Mar 2</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at Academy</b>, Hollywood <span class=wh>with Mason</span></span><span class="qt">"Heading to RL Grime at Academy."</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Jun 1, 2024"><span class="nd">Jun 1</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Beyond Wonderland</b>, Chicago</span></li>
+<li class="nt" tabindex="0" data-p="Vermillion" data-c="#ff2a3a" data-d="Oct 26, 2024"><span class="nd">Oct 26</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>Breakaway</b>, San Francisco <span class=wh>with Vermillion</span></span><span class="qt">"RL&#x27;s set was a masterpiece. The RL Grime California Triple Crown: SF, LA and SD."</span></li>
+<li class="nt" tabindex="0" data-p="Michelle Mason" data-c="#ff8fc2" data-d="Dec 7, 2024"><span class="nd">Dec 7</span><span class="dots" aria-label="ISOKNOCK, RL Grime"><i style="--d:#ff8fc2" title="ISOKNOCK"></i><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>ISOKNOCK SAN DIEGO 4EVR</b>, Snapdragon Stadium <span class=wh>with Michelle, Mason</span></span><span class="qt">The show that became NiteHarts. Michelle on night one, the trolley to Snapdragon. Mason on night two.</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Dec 20, 2024"><span class="nd">Dec 20</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at the Palladium</b>, Hollywood</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#d7f03a" data-d="Dec 31, 2024"><span class="nd">Dec 31</span><span class="dots" aria-label="Knock2"><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>Countdown NYE</b>, Southern California</span><span class="qt">"Galantis then Knock2. #FamilyMusic"</span></li>
+<li class="yr" aria-hidden="true">2025</li>
+<li class="nt" tabindex="0" data-p="Michelle" data-c="#ff2a3a" data-d="May 16, 2025"><span class="nd">May 16</span><span class="dots" aria-label="RL Grime, ISOKNOCK"><i style="--d:#ff2a3a" title="RL Grime"></i><i style="--d:#ff8fc2" title="ISOKNOCK"></i></span><span class="ne"><b>EDC Las Vegas</b>, Las Vegas <span class=wh>with Michelle</span></span><span class="qt">"RL Grime time."</span></li>
+<li class="nt" tabindex="0" data-p="" data-c="#ff2a3a" data-d="Sep 10, 2025"><span class="nd">Sep 10</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime pop-up, The Loft at Academy</b>, Hollywood</span><span class="qt">"Got PLUR&#x27;d at the RL Grime pop up."</span></li>
+<li class="nt" tabindex="0" data-p="Brennan Quinn Mason Kelly" data-c="#b48cff" data-d="Oct 11, 2025"><span class="nd">Oct 11</span><span class="dots" aria-label="ISOxo, Knock2"><i style="--d:#b48cff" title="ISOxo"></i><i style="--d:#d7f03a" title="Knock2"></i></span><span class="ne"><b>NiteHarts 2025</b>, Snapdragon Stadium <span class=wh>with Brennan, Quinn, Mason, Kelly</span></span><span class="qt">In SD for BrenBren&#x27;s birthday, with Skrillex and Zedd joining ISOxo and Knock2.</span></li>
+<li class="nt" tabindex="0" data-p="Mason Michelle" data-c="#ff2a3a" data-d="Dec 27, 2025"><span class="nd">Dec 27</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>RL Grime at Academy</b>, Hollywood <span class=wh>with Mason, Michelle</span></span><span class="qt">"7 minutes until RL Grime. HAPPINESS."</span></li>
+<li class="yr" aria-hidden="true">2026</li>
+<li class="nt" tabindex="0" data-p="Mason" data-c="#ff2a3a" data-d="Aug 2, 2026"><span class="nd">Aug 2</span><span class="dots" aria-label="RL Grime"><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>HARD Summer</b>, Hollywood Park <span class=wh>with Mason</span></span></li>
+<li class="nt" tabindex="0" data-p="Quinn Kelly Kara" data-c="#ff8fc2" data-d="Oct 11, 2026"><span class="nd">Oct 11</span><span class="dots" aria-label="ISOKNOCK, RL Grime"><i style="--d:#ff8fc2" title="ISOKNOCK"></i><i style="--d:#ff2a3a" title="RL Grime"></i></span><span class="ne"><b>NiteHarts LATENITE</b>, Pechanga Arena <span class=wh>with Quinn, Kelly, Kara</span></span><span class="qt">"I was absolutely there."</span></li>
+  </ol>
+  <p class="fine">ISOKNOCK nights count for both ISOxo and Knock2. "Likely" means my texts put us there but not the exact set. Quotes are mine, from my own texts that night.</p>
+ </div>
+</section>
+<!--/HISTORY-->
+
+<section class="house" aria-label="House lights">
+  <h2>House lights up.</h2>
+  <p>Every name on this page is a cue in my life. Some of you were on the floor with me. Some of you were there in every other way.</p>
+  <p>Text me back the moment you'd add as the next cue. I'll program it.</p>
+  <p class="sig">Gordon</p>
+  <p class="credits">Fan video of the last 48 minutes by Nathan Sevilla on YouTube, linked, not copied. Tracklist from 1001Tracklists. Colors and energy measured from that video every 30 seconds. Stills and early times from my own phone, cropped to the lights. Times marked "about" are estimates. Sound on this page is synthesized in your browser, not the set.</p>
+</section>
+
+<script>
+(()=>{
+  const cues=[...document.querySelectorAll('.cue')];
+  const stage=document.getElementById('stage'), still=document.getElementById('still');
+  const clock=document.getElementById('clock'), what=document.getElementById('what'), forEl=document.getElementById('for'), strip=document.getElementById('strip');
+  const dot=document.getElementById('dot'), plantext=document.getElementById('plantext');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let i=0, ctx=null, soundOn=false;
+  function setCue(n, fromUser){
+    i=Math.max(0,Math.min(cues.length-1,n)); const c=cues[i];
+    cues.forEach(x=>x.removeAttribute('aria-current')); c.setAttribute('aria-current','true');
+    const col=c.dataset.c; document.documentElement.style.setProperty('--glow',col);
+    stage.style.backgroundColor='color-mix(in srgb, '+col+' 22%, #0b0a09)';
+    if(c.dataset.img){still.style.backgroundImage='url('+c.dataset.img+')';still.style.opacity='.55';still.setAttribute('aria-label',c.dataset.alt||'');}
+    else{still.style.opacity='0';still.setAttribute('aria-label','');}
+    const bowl=c.dataset.src==='bowl'; dot.setAttribute('cx', bowl?78:46); dot.setAttribute('cy', bowl?14:46); plantext.textContent= bowl?'fan, upper bowl':'me, on the floor';
+    clock.textContent=c.querySelector('.t').textContent.trim();
+    what.textContent=c.querySelector('h3').textContent;
+    const ps=c.querySelectorAll('.body > p:not(.src)'); forEl.textContent= ps.length? ps[0].textContent : '';
+    strip.textContent=c.querySelector('.q').textContent+'  '+(c.dataset.who? 'for '+c.dataset.who : c.querySelector('h3').textContent);
+    if(fromUser && soundOn) blip(col);
+    if(fromUser){ const r=stage.getBoundingClientRect(); if(r.bottom<120) stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); }
+  }
+  document.getElementById('go').onclick=()=>{ if(i===cues.length-1){ houseUp(); } else setCue(i+1,true); };
+  function houseUp(){ document.documentElement.style.setProperty('--glow','#f3efe8'); stage.style.backgroundColor='#3a3631'; strip.textContent='House lights up'; document.querySelector('.house').scrollIntoView({behavior:reduce?'auto':'smooth'}); }
+  document.getElementById('back').onclick=()=>setCue(i-1,true);
+  cues.forEach((c,n)=>{c.addEventListener('click',e=>{if(e.target.closest('a'))return;setCue(n,true)});c.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setCue(n,true)}})});
+  document.querySelectorAll('.band').forEach(b=>b.onclick=()=>{setCue(+b.dataset.q,true);stage.scrollIntoView({behavior:reduce?'auto':'smooth'})});
+  document.addEventListener('keydown',e=>{
+    if(e.target.closest('input,textarea,a,button,.cue'))return;
+    if(e.key===' '||e.key==='Enter'){e.preventDefault(); if(i===cues.length-1) houseUp(); else setCue(i+1,true)}
+    if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();setCue(i-1,true)}
+    if((e.key==='d'||e.key==='D')&&!e.repeat) holdStart();
+  });
+  document.addEventListener('keyup',e=>{if(e.key==='d'||e.key==='D')holdEnd()});
+
+  /* HOLD DROP: hold to pull the room to black and build; release to slam the color back. */
+  const dropBtn=document.getElementById('drop'); let holding=false, riser=null, t0=0;
+  function holdStart(){ if(holding)return; holding=true; t0=performance.now(); stage.classList.add('black'); if(soundOn) riser=startRiser(); }
+  function holdEnd(){ if(!holding)return; holding=false; stage.classList.remove('black'); const held=(performance.now()-t0)/1000;
+    if(!reduce){ stage.animate([{filter:'brightness(2.2)'},{filter:'brightness(1)'}],{duration:500+Math.min(held,6)*120,easing:'ease-out'}); }
+    if(soundOn){ stopRiser(riser); slam(Math.min(held,6)); } }
+  dropBtn.addEventListener('pointerdown',e=>{e.preventDefault();dropBtn.setPointerCapture(e.pointerId);holdStart()});
+  dropBtn.addEventListener('pointerup',holdEnd); dropBtn.addEventListener('pointercancel',holdEnd);
+  dropBtn.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();holdStart()}});
+  dropBtn.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();holdEnd()}});
+
+  /* Sound: synthesized here, off until asked for. */
+  const sndBtn=document.getElementById('snd');
+  sndBtn.onclick=()=>{ soundOn=!soundOn; sndBtn.setAttribute('aria-pressed',soundOn); sndBtn.textContent= soundOn?'SOUND ON':'SOUND OFF'; if(soundOn&&!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx&&ctx.state==='suspended')ctx.resume(); };
+  function blip(col){ if(!ctx)return; const o=ctx.createOscillator(), g=ctx.createGain(); const h=parseInt(col.slice(1),16); o.type='triangle'; o.frequency.value=220+(h%440); g.gain.setValueAtTime(.0001,ctx.currentTime); g.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+.01); g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.35); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+.4); }
+  function startRiser(){ if(!ctx)return null; const len=ctx.sampleRate*8, b=ctx.createBuffer(1,len,ctx.sampleRate), d=b.getChannelData(0); for(let k=0;k<len;k++)d[k]=Math.random()*2-1; const s=ctx.createBufferSource(); s.buffer=b; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.Q.value=4; f.frequency.setValueAtTime(300,ctx.currentTime); f.frequency.exponentialRampToValueAtTime(9000,ctx.currentTime+7); const g=ctx.createGain(); g.gain.setValueAtTime(.02,ctx.currentTime); g.gain.linearRampToValueAtTime(.18,ctx.currentTime+7); s.connect(f).connect(g).connect(ctx.destination); s.start(); return {s,g}; }
+  function stopRiser(r){ if(!r)return; r.g.gain.cancelScheduledValues(ctx.currentTime); r.g.gain.setValueAtTime(r.g.gain.value,ctx.currentTime); r.g.gain.linearRampToValueAtTime(0,ctx.currentTime+.05); r.s.stop(ctx.currentTime+.06); }
+  function slam(power){ const now=ctx.currentTime, beat=60/150; for(let k=0;k<8;k++){ const t=now+k*beat; const o=ctx.createOscillator(), g=ctx.createGain(); o.type='sine'; o.frequency.setValueAtTime(150,t); o.frequency.exponentialRampToValueAtTime(42,t+.18); g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.5,t+.005); g.gain.exponentialRampToValueAtTime(.0001,t+.45); o.connect(g).connect(ctx.destination); o.start(t); o.stop(t+.5); }
+    const sub=ctx.createOscillator(), sg=ctx.createGain(); sub.type='sawtooth'; sub.frequency.value=55; const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.setValueAtTime(120+power*120,now); lp.frequency.linearRampToValueAtTime(90,now+8*beat); sg.gain.setValueAtTime(.0001,now); sg.gain.exponentialRampToValueAtTime(.22,now+.02); sg.gain.exponentialRampToValueAtTime(.0001,now+8*beat); sub.connect(lp).connect(sg).connect(ctx.destination); sub.start(now); sub.stop(now+8*beat+.1); }
+
+
+  /* SHOW FILE: name bands light their nights; a night recalls onto the stage. */
+  const nights=[...document.querySelectorAll('.nt')], list=document.getElementById('nights'), you=document.getElementById('you');
+  function light(name){ const mine=nights.filter(n=>(n.dataset.p||'').split(' ').some(x=>name.split(' ').includes(x)) || (n.dataset.p||'').includes(name));
+    list.classList.add('lit'); nights.forEach(n=>n.classList.toggle('on',mine.includes(n)));
+    you.textContent= mine.length? name+': '+mine.length+(mine.length===1?' night':' nights')+' in the file.' : (name==='Foster'? 'Foster: your nights in this file are still ahead. FANGSPEARE.' : name+': yours start here.'); }
+  document.querySelectorAll('.band').forEach(b=>b.addEventListener('click',()=>light(b.textContent.trim()==='Vermillion'?'Vermillion':b.textContent.trim())));
+  nights.forEach(n=>{ const go=()=>{ document.documentElement.style.setProperty('--glow',n.dataset.c); stage.style.backgroundColor='color-mix(in srgb, '+n.dataset.c+' 22%, #0b0a09)'; still.style.opacity='0';
+      clock.textContent=n.dataset.d; what.textContent=n.querySelector('.ne b').textContent; const q=n.querySelector('.qt'); forEl.textContent=q?q.textContent:n.querySelector('.ne').textContent; strip.textContent='Recall '+n.dataset.d;
+      stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); };
+    n.addEventListener('click',go); n.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();go()}}); });
+
+  setCue(0,false);
+})();
+</script>
+</body>
+</html>
