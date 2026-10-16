@@ -28,7 +28,7 @@ a{color:var(--ink)}
 .stage{position:relative;min-height:62vh;overflow:hidden;background:var(--room);transition:background-color 1.6s ease}
 .stage .wash{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 0%, var(--glow) 0%, transparent 62%);opacity:.85;transition:background 1.6s ease, opacity .2s}
 .stage .still{position:absolute;inset:0;background-size:cover;background-position:center 30%;mix-blend-mode:screen;opacity:.0;transition:opacity 1.2s ease}
-.stage .beams{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.75}
+.stage .beams{display:none;position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.75}
 .beams line{stroke:var(--glow);stroke-width:7;stroke-linecap:round;filter:blur(3px)}
 .beams g{transform-origin:50% 0%;animation:sweep 7s ease-in-out infinite alternate}
 .beams g:nth-child(2){animation-duration:9s;animation-direction:alternate-reverse}
@@ -37,12 +37,12 @@ a{color:var(--ink)}
 .stage .floor{position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(transparent, rgba(0,0,0,.85))}
 
 .marquee{position:relative;z-index:2;padding:22px 16px 0;max-width:1100px;margin:0 auto}
-.marquee h1{margin:0;font-stretch:125%;font-weight:900;font-size:clamp(46px,11vw,132px);line-height:.86;letter-spacing:-.01em;text-transform:uppercase;text-shadow:0 0 40px rgba(0,0,0,.35)}
+.marquee h1{margin:0;text-shadow:0 2px 24px rgba(0,0,0,.6);font-stretch:125%;font-weight:900;font-size:clamp(46px,11vw,132px);line-height:.86;letter-spacing:-.01em;text-transform:uppercase;text-shadow:0 0 40px rgba(0,0,0,.35)}
 .marquee h1 .sm{display:block;font-stretch:62%;font-weight:600;font-size:.26em;letter-spacing:.02em;text-transform:none;margin-top:10px}
 .now{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:18px 16px 26px}
 .now .clock{font-stretch:62%;font-weight:800;font-size:clamp(56px,14vw,150px);line-height:.9;font-variant-numeric:tabular-nums}
 .now .what{font-stretch:75%;font-weight:700;font-size:clamp(20px,3.6vw,34px);line-height:1.1;max-width:22ch}
-.now .for{margin-top:12px;font-size:clamp(17px,2.4vw,22px);max-width:38ch}
+.now .for{text-shadow:0 1px 12px rgba(0,0,0,.85);margin-top:12px;font-size:clamp(17px,2.4vw,22px);max-width:38ch}
 .now .for b{font-weight:800}
 .plan{position:absolute;right:16px;top:18px;z-index:2;width:92px;height:66px}
 .plan ellipse{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.5}
@@ -124,14 +124,49 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
 .nights.lit .nt.on{opacity:1;background:#1d1c1a;box-shadow:inset 3px 0 0 var(--amber)}
 .hist .fine{color:#a39d94;font-size:13px;margin-top:18px;max-width:70ch}
 @media (max-width:640px){.nt{grid-template-columns:52px 1fr}.nt .dots{grid-column:2;grid-row:1;justify-self:end}.nt .ne,.nt .qt{grid-column:1 / -1}}
+
+.stage .rig{position:absolute;inset:0;background-size:cover;background-position:center 38%;opacity:0;transition:opacity 1.1s ease}
+.stage .rig.on{opacity:1}
+.stage .loop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:0;transition:opacity 1s}
+.stage .loop.on{opacity:1}
+.stage .wash{background:radial-gradient(90% 70% at 50% 30%, transparent 0%, rgba(0,0,0,.25) 55%, rgba(0,0,0,.75) 100%), linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.25) 55%, transparent 80%)!important;opacity:1!important}
+.stage .fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.print{position:absolute;z-index:3;right:18px;bottom:18px;width:150px;margin:0;background:#f4f1ea;padding:7px 7px 26px;transform:rotate(3deg);box-shadow:0 10px 30px rgba(0,0,0,.6);transition:transform .5s}
+.print .still{position:static!important;width:100%;aspect-ratio:4/5;background-size:cover;background-position:center;opacity:1!important;mix-blend-mode:normal!important}
+.print figcaption{position:absolute;left:8px;right:8px;bottom:6px;color:#222;font:700 12px var(--cond);font-stretch:75%}
+.stage.black .rig,.stage.black .loop,.stage.black .print{opacity:0;transition:opacity .12s}
+.stage.black .rig.blk{opacity:1}
+.stage{cursor:crosshair}
+@media (max-width:640px){.stage .rig,.stage .loop{background-position:center 30%;object-position:center 30%}.stage .wash{background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,.6) 100%)!important}.print{width:104px;right:10px;bottom:10px;padding:5px 5px 20px}.print figcaption{font-size:10px}}
+
+.keep{display:grid;grid-template-columns:minmax(220px,340px) 1fr;gap:28px;align-items:center;margin:10px 0 34px}
+.lam{position:relative;margin:0;transform:rotate(-2deg);filter:drop-shadow(0 18px 30px rgba(0,0,0,.6))}
+.lam canvas{width:100%;height:auto;display:block;border-radius:14px}
+.lam .foil{position:absolute;inset:0;border-radius:14px;pointer-events:none;mix-blend-mode:color-dodge;opacity:.42;background:conic-gradient(from var(--fa,0deg) at var(--fx,50%) var(--fy,40%), #ff2a3a, #ffb000, #d7f03a, #2bd06a, #3fb8ff, #b48cff, #ff2fae, #ff2a3a);filter:blur(10px)}
+.kh{font-stretch:75%;font-weight:800;font-size:24px;margin:0 0 10px}
+.who{display:block;font-size:16px;margin-bottom:12px;color:#d8d2c8}
+.who select{font:inherit;font-weight:700;margin-left:6px;padding:6px 8px;background:#1b1b1d;color:#fff;border:1px solid #444;border-radius:4px}
+.kandi{width:100%;max-width:520px;height:auto;display:block}
+.kandi text{font:800 13px var(--cond);fill:#111;text-anchor:middle;dominant-baseline:central}
+.plur{display:flex;gap:10px;margin:8px 0 14px;font-stretch:62%;font-weight:900;font-size:20px;color:#3a3a3e}
+.plur span.lit{color:var(--amber);text-shadow:0 0 12px rgba(255,176,0,.6)}
+.kbtns{display:flex;gap:10px;flex-wrap:wrap}
+.trade{background:#ff8fc2;font-size:16px}.save{background:#7fd3ff;font-size:16px}
+.towel{appearance:none;border:0;cursor:pointer;background:#16b04e;color:#04150a;font:800 14px var(--cond);padding:6px 10px;border-radius:3px;margin-top:6px}
+.hello{position:relative;z-index:4;background:var(--amber);color:#111;padding:10px 16px;font-weight:800;font-size:17px;text-align:center}
+@media (max-width:640px){.keep{grid-template-columns:1fr}.lam{max-width:260px;margin:0 auto}}
 </style>
 </head>
 <body>
 <a class="skip" href="#cues">Skip to the cue sheet</a>
 
 <section class="stage" id="stage" aria-label="The room">
+  <div class="rig" id="rigA" style="background-image:url(img/rig-web/rig-house.jpg)"></div><div class="rig" id="rigB"></div>
+  <video class="loop" id="loop" muted playsinline loop preload="none" data-src="img/beams-red.mp4" aria-hidden="true"></video>
+  <video class="loop" id="dropv" muted playsinline preload="auto" src="img/drop.mp4" aria-hidden="true"></video>
   <div class="wash"></div>
-  <div class="still" id="still" role="img" aria-label=""></div>
+  <canvas class="fx" id="fx" aria-hidden="true"></canvas>
+  <figure class="print" id="print" hidden><div class="still" id="still" role="img" aria-label=""></div><figcaption id="printcap"></figcaption></figure>
   <svg class="beams" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden="true">
     <g><line x1="30" y1="-2" x2="12" y2="62"/><line x1="50" y1="-2" x2="50" y2="62"/><line x1="70" y1="-2" x2="88" y2="62"/></g>
     <g><line x1="40" y1="-2" x2="22" y2="62"/><line x1="60" y1="-2" x2="78" y2="62"/></g>
@@ -174,75 +209,75 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
   </div>
 
   <ol class="cues" id="cues">
-    <li class="cue" data-c="#2a2420" data-src="bowl" tabindex="0">
+    <li class="cue" data-rig="house" data-c="#2a2420" data-src="bowl" tabindex="0">
       <div class="q">Q0</div><div class="t"><span class="sw" style="--c:#2a2420"></span>10:00 PM</div>
       <div class="body"><h3>House lights. Doors.</h3><p>"We HAVE to get Brownies and Lemonade San Diego tickets." That was me in August, in caps. We got them.</p><p>NiteHarts LATENITE, the official closing party, produced by Brownies and Lemonade. Alison Wonderland, Hamdi b2b Flava D, ISOKNOCK b2b RL Grime, Nitepunk b2b borne, No Signal, Rocket Rese.</p></div>
     </li>
-    <li class="cue" data-c="#d8d2cc" data-img="img/c1-2336.jpg" data-alt="White haze over the empty floor by the DJ riser, from my phone" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="white" data-c="#d8d2cc" data-img="img/c1-2336.jpg" data-alt="White haze over the empty floor by the DJ riser, from my phone" data-src="floor" tabindex="0">
       <div class="q">Q1</div><div class="t"><span class="sw" style="--c:#d8d2cc"></span>11:36 PM</div>
       <div class="body"><h3>Room to move.</h3><p>The floor was still half empty. Haze, the rail, the riser in the middle of the room. Early is a gift. You get to pick your spot.</p><p class="src">My video, 11:36 PM.</p></div>
     </li>
-    <li class="cue" data-c="#ff5a1a" data-img="img/c2-2340.jpg" data-alt="Orange light on the riser, a performer with arms up, from my phone" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="orange" data-c="#ff5a1a" data-img="img/c2-2340.jpg" data-alt="Orange light on the riser, a performer with arms up, from my phone" data-src="floor" tabindex="0">
       <div class="q">Q2</div><div class="t"><span class="sw" style="--c:#ff5a1a"></span>11:40 PM</div>
       <div class="body"><h3>Rocket Rese, "MISS MY CHOPPA"</h3><p>All orange. The rage set before the rage set.</p><p class="src">My video, 11:40 PM. Track by Shazam.</p></div>
     </li>
-    <li class="cue" data-c="#2b1a6e" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="purple" data-c="#2b1a6e" data-src="floor" tabindex="0">
       <div class="q">Q3</div><div class="t"><span class="sw" style="--c:#2b1a6e"></span>about 1:00 AM</div>
       <div class="body"><h3>ISOKNOCK b2b RL GRIME. "Scylla."</h3><p>Three DJs, one riser. Back to back means acts trading songs on one set of decks, and ISOxo and Knock2, who built this whole festival, traded with RL Grime for 77 minutes.</p><p class="src">Opener from the 1001Tracklists list. Start time is my estimate from the tracks in my videos.</p></div>
     </li>
-    <li class="cue" data-c="#c21a8a" data-img="img/c3-0105.jpg" data-alt="Purple and pink light over a packed floor, from my phone" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="magenta" data-c="#c21a8a" data-img="img/c3-0105.jpg" data-alt="Purple and pink light over a packed floor, from my phone" data-src="floor" tabindex="0">
       <div class="q">Q4</div><div class="t"><span class="sw" style="--c:#c21a8a"></span>1:05 AM</div>
       <div class="body"><h3>Packed.</h3><p>Purple into pink into white. Twenty minutes ago there was room to move. Now there is only room to jump.</p><p class="src">My video, 1:05 AM.</p></div>
     </li>
-    <li class="cue" data-c="#e0301a" data-img="img/c4-0109.jpg" data-alt="Red beams fanning over the crowd, from my phone" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="red" data-c="#e0301a" data-img="img/c4-0109.jpg" data-alt="Red beams fanning over the crowd, from my phone" data-src="floor" tabindex="0">
       <div class="q">Q5</div><div class="t"><span class="sw" style="--c:#e0301a"></span>1:09 AM</div>
       <div class="body"><h3>Ken Carson, "Yale"</h3><p>Red beams, fanned out like fingers. Track 22 of the set.</p><p class="src">My video, 1:09 AM. Shazam twice.</p></div>
     </li>
-    <li class="cue" data-c="#7fd3ff" data-src="floor" data-who="Brennan" tabindex="0">
+    <li class="cue" data-rig="blue" data-c="#7fd3ff" data-src="floor" data-who="Brennan" tabindex="0">
       <div class="q">Q6</div><div class="t"><span class="sw" style="--c:#7fd3ff"></span>about 1:10 AM</div>
       <div class="body"><h3>"4EVR." For Brennan.</h3><p>Next on the list after "Yale." One year ago tonight, October 11, 2025, we were at NiteHarts for your birthday. This year they played "4EVR," the anthem of the San Diego shows that grew into this festival. You weren't on the floor this time, so I'm sending you the floor.</p><p class="src">Order from the tracklist, so the time is approximate.</p></div>
     </li>
-    <li class="cue" data-c="#d7f03a" data-img="img/c5-0123a.jpg" data-alt="Yellow-green beam fans over raised hands, from my phone" data-src="floor" tabindex="0">
+    <li class="cue" data-rig="yellowgreen" data-c="#d7f03a" data-img="img/c5-0123a.jpg" data-alt="Yellow-green beam fans over raised hands, from my phone" data-src="floor" tabindex="0">
       <div class="q">Q7</div><div class="t"><span class="sw" style="--c:#d7f03a"></span>1:23 AM</div>
       <div class="body"><h3>"Just Wanna Rock," the ISOxo and Knock2 edit</h3><p>Yellow-green fans, then pink lasers, then blue. Three colors in one minute.</p><p class="src">My video, 1:23 AM. Shazam.</p></div>
     </li>
-    <li class="cue" data-c="#ff2a3a" data-src="bowl" data-yt="15" data-who="Mason" tabindex="0">
+    <li class="cue" data-rig="red" data-c="#ff2a3a" data-src="bowl" data-yt="15" data-who="Mason" tabindex="0">
       <div class="q">Q8</div><div class="t"><span class="sw" style="--c:#ff2a3a"></span>about 1:28 AM</div>
       <div class="body"><h3>RL Grime, "Core." For Mason.</h3><p>The room goes red. First EDC, 2016, the first time for both of us. And the pink RL Grime jersey you gave me. People stop me and I get to talk about my best friend!!</p><p class="src">From here on, the fan video from the bowl. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=15s">Watch this moment</a>.</p></div>
     </li>
-    <li class="cue" data-c="#d9a090" data-src="bowl" data-yt="375" tabindex="0">
+    <li class="cue" data-rig="amber" data-c="#d9a090" data-src="bowl" data-yt="375" tabindex="0">
       <div class="q">Q9</div><div class="t"><span class="sw" style="--c:#d9a090"></span>about 1:34 AM</div>
       <div class="body"><h3>"Clarity," and everybody sings.</h3><p>A Zedd vocal from 2012 over a drop from 2026. Ten thousand phones in the air, all of us suddenly the same age.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=375s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#f4f4f4" data-src="bowl" data-yt="960" data-who="Quinn" tabindex="0">
+    <li class="cue" data-rig="white" data-c="#f4f4f4" data-src="bowl" data-yt="960" data-who="Quinn" tabindex="0">
       <div class="q">Q10</div><div class="t"><span class="sw" style="--c:#f4f4f4"></span>about 1:43 AM</div>
       <div class="body"><h3>"SMACK TALK." For Quinn.</h3><p>The one track all three of them made together. A back to back is a friendly rivalry with the whole room as the trophy. Quinn, you hosted me, you stood next to me, and you know a little smack talk is how we say we love each other. QUINNAFTA Cup rules.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=960s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#d7f03a" data-src="bowl" data-yt="1545" data-who="Vermillion" tabindex="0">
+    <li class="cue" data-rig="yellowgreen" data-c="#d7f03a" data-src="bowl" data-yt="1545" data-who="Vermillion" tabindex="0">
       <div class="q">Q11</div><div class="t"><span class="sw" style="--c:#d7f03a"></span>about 1:53 AM</div>
       <div class="body"><h3>Knock2, "sound di alarm." For Vermillion.</h3><p>Dave, Knock2 was our last LA show, and Knock2 in SF was our first show living together. Brownies and Lemonade put on this whole night, and you and I have been doing B&amp;L since their second show. Ride or Diespacio.</p><p class="src">Shazam on the fan video. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=1545s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#16b04e" data-src="bowl" data-yt="1650" data-who="Michelle" tabindex="0">
+    <li class="cue" data-rig="green" data-c="#16b04e" data-src="bowl" data-yt="1650" data-who="Michelle" tabindex="0">
       <div class="q">Q12</div><div class="t"><span class="sw" style="--c:#16b04e"></span>about 1:55 AM</div>
-      <div class="body"><h3>The green stretch. For Michelle.</h3><p>For five straight minutes the whole arena turned green. Sable Valley green. Rally towel green. RLChelle, you weren't in the building, and it still looked like your towels took it over. Right in the middle of it, Knock2's remix of RL's "Tell Me."</p><p class="src">Color measured from the fan video, 27:30 to 31:30. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=1650s">Watch</a>.</p></div>
+      <div class="body"><h3>The green stretch. For Michelle.</h3><button class="towel" type="button" data-towel>Wave a towel</button><p>For five straight minutes the whole arena turned green. Sable Valley green. Rally towel green. RLChelle, you weren't in the building, and it still looked like your towels took it over. Right in the middle of it, Knock2's remix of RL's "Tell Me."</p><p class="src">Color measured from the fan video, 27:30 to 31:30. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=1650s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#ffb000" data-src="bowl" data-yt="2085" data-who="Foster" data-drop="1" tabindex="0">
+    <li class="cue" data-rig="amber" data-c="#ffb000" data-src="bowl" data-yt="2085" data-who="Foster" data-drop="1" tabindex="0">
       <div class="q">Q13</div><div class="t"><span class="sw" style="--c:#ffb000"></span>about 2:02 AM</div>
       <div class="body"><h3>"Satisfaction," then black. For Foster.</h3><p>Benny Benassi, then the lights go out for a breath, then the bass comes back with everything. No screen all night. Just haze, beams and one color at a time. FANGSPEARE, this is the room your music is going to light. Hold DROP here.</p><p class="src">Breakdown and slam measured at 35:00 and 35:30 in the fan video. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2085s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#3fe08f" data-src="bowl" data-yt="2520" data-who="Sable Valley" tabindex="0">
+    <li class="cue" data-rig="green" data-c="#3fe08f" data-src="bowl" data-yt="2520" data-who="Sable Valley" tabindex="0">
       <div class="q">Q14</div><div class="t"><span class="sw" style="--c:#3fe08f"></span>about 2:09 AM</div>
-      <div class="body"><h3>RL Grime, "I Wanna Know." For my Sable Valley family.</h3><p>Sable Valley is the Motown of electronic dance music, and you are the reason it feels like family. From the Discord to the livestream watch parties to every rail since. The loudest moment of the last hour was an RL Grime song.</p><p class="src">Low-end peak measured at 42:00 in the fan video. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2520s">Watch</a>.</p></div>
+      <div class="body"><h3>RL Grime, "I Wanna Know." For my Sable Valley family.</h3><button class="towel" type="button" data-towel>Wave a towel</button><p>Sable Valley is the Motown of electronic dance music, and you are the reason it feels like family. From the Discord to the livestream watch parties to every rail since. The loudest moment of the last hour was an RL Grime song.</p><p class="src">Low-end peak measured at 42:00 in the fan video. Track from the list order. <a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2520s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#ff2a3a" data-src="bowl" data-yt="2625" data-who="Kelly and Kara" tabindex="0">
+    <li class="cue" data-rig="magenta" data-c="#ff2a3a" data-src="bowl" data-yt="2625" data-who="Kelly and Kara" tabindex="0">
       <div class="q">Q15</div><div class="t"><span class="sw" style="--c:#ff2a3a"></span>about 2:11 AM</div>
       <div class="body"><h3>ISOxo, "dontstopme!" For Kelly and Kara.</h3><p>The ISOxo corner of my life. Kelly, you and I met for about a minute in an RL Grime mosh pit in 2019, and we both walked away with video of each other. We only discovered that chance encounter after the pandemic, when we were already friends. This time nobody needed luck. You were both right next to me.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2625s">Watch</a>.</p></div>
     </li>
-    <li class="cue" data-c="#5a5fd0" data-src="bowl" data-yt="2850" tabindex="0">
+    <li class="cue" data-rig="violet" data-c="#5a5fd0" data-src="bowl" data-yt="2850" tabindex="0">
       <div class="q">Q16</div><div class="t"><span class="sw" style="--c:#5a5fd0"></span>about 2:15 AM</div>
       <div class="body"><h3>ISOxo, "F**K THE SPEAKERZ UP."</h3><p>Last track. Seventy-seven minutes, eighty-one songs, three people trading one room.</p><p class="src"><a href="https://www.youtube.com/watch?v=Xacx6-rJpJU&amp;t=2850s">Watch the close</a>.</p></div>
     </li>
-    <li class="cue" data-c="#f2c94c" data-src="bowl" tabindex="0">
+    <li class="cue" data-rig="house" data-c="#f2c94c" data-src="bowl" tabindex="0">
       <div class="q">Q17</div><div class="t"><span class="sw" style="--c:#f2c94c"></span>2:15 AM</div>
       <div class="body"><h3>Alison Wonderland.</h3><p>My first EDC artist walks on right after. Ten years of these nights, and the first one shows up to close the last one.</p></div>
     </li>
@@ -314,10 +349,20 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
 
 <section class="house" aria-label="House lights">
   <h2>House lights up.</h2>
+  <div class="keep">
+    <figure class="lam" id="lam"><canvas id="lamc" width="900" height="1269" role="img" aria-label="An all access laminate for LATENITE with your name on it"></canvas><div class="foil" aria-hidden="true"></div></figure>
+    <div class="kandiwrap">
+      <p class="kh">Your laminate, and your kandi.</p>
+      <label class="who">Whose night is this? <select id="whosel"><option value="">Pick your name</option><option>Brennan</option><option>Foster</option><option>Mason</option><option>Vermillion</option><option>Quinn</option><option>Kelly</option><option>Kara</option><option>Michelle</option><option>Sable Valley</option></select></label>
+      <svg id="kandi" class="kandi" viewBox="0 0 360 120" role="img" aria-label="A kandi bracelet"></svg>
+      <div class="plur" id="plur" aria-live="polite"><span>PEACE</span><span>LOVE</span><span>UNITY</span><span>RESPECT</span></div>
+      <div class="kbtns"><button class="key trade" id="trade" type="button">TRADE KANDI</button><button class="key save" id="save" type="button">SAVE LAMINATE</button></div>
+    </div>
+  </div>
   <p>Every name on this page is a cue in my life. Some of you were on the floor with me. Some of you were there in every other way.</p>
   <p>Text me back the moment you'd add as the next cue. I'll program it.</p>
   <p class="sig">Gordon</p>
-  <p class="credits">Fan video of the last 48 minutes by Nathan Sevilla on YouTube, linked, not copied. Tracklist from 1001Tracklists. Colors and energy measured from that video every 30 seconds. Stills and early times from my own phone, cropped to the lights. Times marked "about" are estimates. Sound on this page is synthesized in your browser, not the set.</p>
+  <p class="credits">Fan video of the last 48 minutes by Nathan Sevilla on YouTube, linked, not copied. Tracklist from 1001Tracklists. Colors and energy measured from that video every 30 seconds. Stills and early times from my own phone, cropped to the lights. Times marked "about" are estimates. Sound on this page is original: crowd and haze effects made with ElevenLabs, the riser and sub synthesized in your browser. None of it is the set. The arena is an original Blender model lit in the colors measured from the fan video; the red beam loop is that render animated with Higgsfield; the laminate base was designed in Canva.</p>
 </section>
 
 <script>
@@ -328,19 +373,29 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
   const dot=document.getElementById('dot'), plantext=document.getElementById('plantext');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let i=0, ctx=null, soundOn=false;
+  const rigA=document.getElementById('rigA'), rigB=document.getElementById('rigB'), loop=document.getElementById('loop'); let front=rigA, curRig='house';
+  rigA.classList.add('on');
+  ['red','amber','green','white','blue','magenta','yellowgreen','purple','orange','violet','black'].forEach(n=>{const im=new Image(); im.src='img/rig-web/rig-'+n+'.jpg';});
+  function showRig(name){ if(name===curRig) return; curRig=name; const back= front===rigA? rigB: rigA; back.style.backgroundImage='url(img/rig-web/rig-'+name+'.jpg)'; back.classList.add('on'); front.classList.remove('on'); front=back;
+    if(loop.dataset.src && name==='red' && !reduce){ if(!loop.src) loop.src=loop.dataset.src; loop.classList.add('on'); loop.play().catch(()=>{}); } else { loop.classList.remove('on'); loop.pause(); } }
+  const bufs={}; async function load(n){ if(bufs[n]||!ctx) return bufs[n]; try{ const r=await fetch('snd/'+n+'.mp3'); bufs[n]=await ctx.decodeAudioData(await r.arrayBuffer()); }catch(e){} return bufs[n]; }
+  async function play(n,vol){ if(!ctx) return; const b=await load(n); if(!b) return; const s=ctx.createBufferSource(), g=ctx.createGain(); g.gain.value=vol||1; s.buffer=b; s.connect(g).connect(ctx.destination); s.start(); }
+
   function setCue(n, fromUser){
     i=Math.max(0,Math.min(cues.length-1,n)); const c=cues[i];
     cues.forEach(x=>x.removeAttribute('aria-current')); c.setAttribute('aria-current','true');
     const col=c.dataset.c; document.documentElement.style.setProperty('--glow',col);
     stage.style.backgroundColor='color-mix(in srgb, '+col+' 22%, #0b0a09)';
-    if(c.dataset.img){still.style.backgroundImage='url('+c.dataset.img+')';still.style.opacity='.55';still.setAttribute('aria-label',c.dataset.alt||'');}
-    else{still.style.opacity='0';still.setAttribute('aria-label','');}
+    showRig(c.dataset.rig||'house');
+    const pr=document.getElementById('print');
+    if(c.dataset.img){still.style.backgroundImage='url('+c.dataset.img+')';still.setAttribute('aria-label',c.dataset.alt||'');document.getElementById('printcap').textContent='my phone, '+c.querySelector('.t').textContent.trim();pr.hidden=false;pr.style.transform='rotate('+(((i*37)%7)-3)+'deg)';}
+    else{pr.hidden=true;still.setAttribute('aria-label','');}
     const bowl=c.dataset.src==='bowl'; dot.setAttribute('cx', bowl?78:46); dot.setAttribute('cy', bowl?14:46); plantext.textContent= bowl?'fan, upper bowl':'me, on the floor';
     clock.textContent=c.querySelector('.t').textContent.trim();
     what.textContent=c.querySelector('h3').textContent;
     const ps=c.querySelectorAll('.body > p:not(.src)'); forEl.textContent= ps.length? ps[0].textContent : '';
     strip.textContent=c.querySelector('.q').textContent+'  '+(c.dataset.who? 'for '+c.dataset.who : c.querySelector('h3').textContent);
-    if(fromUser && soundOn) blip(col);
+    if(fromUser && soundOn){ blip(col); play('haze',.35); }
     if(fromUser){ const r=stage.getBoundingClientRect(); if(r.bottom<120) stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); }
   }
   document.getElementById('go').onclick=()=>{ if(i===cues.length-1){ houseUp(); } else setCue(i+1,true); };
@@ -358,10 +413,12 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
 
   /* HOLD DROP: hold to pull the room to black and build; release to slam the color back. */
   const dropBtn=document.getElementById('drop'); let holding=false, riser=null, t0=0;
+  const blk=document.createElement('div'); blk.className='rig blk'; blk.style.backgroundImage='url(img/rig-web/rig-black.jpg)'; stage.insertBefore(blk, document.getElementById('loop'));
   function holdStart(){ if(holding)return; holding=true; t0=performance.now(); stage.classList.add('black'); if(soundOn) riser=startRiser(); }
   function holdEnd(){ if(!holding)return; holding=false; stage.classList.remove('black'); const held=(performance.now()-t0)/1000;
     if(!reduce){ stage.animate([{filter:'brightness(2.2)'},{filter:'brightness(1)'}],{duration:500+Math.min(held,6)*120,easing:'ease-out'}); }
-    if(soundOn){ stopRiser(riser); slam(Math.min(held,6)); } }
+    if(soundOn){ stopRiser(riser); slam(Math.min(held,6)); play('roar',.9); } if(held>1.2) burst(Math.min(40+held*20,160));
+    const dv=document.getElementById('dropv'); if(!reduce){ dv.currentTime=0; dv.classList.add('on'); dv.play().catch(()=>{}); dv.onended=()=>dv.classList.remove('on'); } }
   dropBtn.addEventListener('pointerdown',e=>{e.preventDefault();dropBtn.setPointerCapture(e.pointerId);holdStart()});
   dropBtn.addEventListener('pointerup',holdEnd); dropBtn.addEventListener('pointercancel',holdEnd);
   dropBtn.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();holdStart()}});
@@ -382,11 +439,69 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
   function light(name){ const mine=nights.filter(n=>(n.dataset.p||'').split(' ').some(x=>name.split(' ').includes(x)) || (n.dataset.p||'').includes(name));
     list.classList.add('lit'); nights.forEach(n=>n.classList.toggle('on',mine.includes(n)));
     you.textContent= mine.length? name+': '+mine.length+(mine.length===1?' night':' nights')+' in the file.' : (name==='Foster'? 'Foster: your nights in this file are still ahead. FANGSPEARE.' : name+': yours start here.'); }
-  document.querySelectorAll('.band').forEach(b=>b.addEventListener('click',()=>light(b.textContent.trim()==='Vermillion'?'Vermillion':b.textContent.trim())));
+  document.querySelectorAll('.band').forEach(b=>b.addEventListener('click',()=>(setWhoLate(b.textContent.trim()),light(b.textContent.trim()==='Vermillion'?'Vermillion':b.textContent.trim()))));
+  function setWhoLate(n){ setTimeout(()=>{ try{ setWho(n); if(soundOn) play('cheer',.8); }catch(e){} },0); }
   nights.forEach(n=>{ const go=()=>{ document.documentElement.style.setProperty('--glow',n.dataset.c); stage.style.backgroundColor='color-mix(in srgb, '+n.dataset.c+' 22%, #0b0a09)'; still.style.opacity='0';
       clock.textContent=n.dataset.d; what.textContent=n.querySelector('.ne b').textContent; const q=n.querySelector('.qt'); forEl.textContent=q?q.textContent:n.querySelector('.ne').textContent; strip.textContent='Recall '+n.dataset.d;
       stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); };
     n.addEventListener('click',go); n.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();go()}}); });
+
+  /* FX: sparks on the drop, phone lights where you tap, Sable Valley towels. */
+  const fx=document.getElementById('fx'), g2=fx.getContext('2d'); let parts=[], raf=0;
+  function size(){ const r=stage.getBoundingClientRect(); fx.width=r.width*devicePixelRatio; fx.height=r.height*devicePixelRatio; }
+  size(); addEventListener('resize',size);
+  function tick(){ g2.clearRect(0,0,fx.width,fx.height); const d=devicePixelRatio;
+    parts=parts.filter(p=>p.life>0); for(const p of parts){ p.life--; p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.r+= p.spin||0;
+      g2.globalAlpha=Math.min(1,p.life/40);
+      if(p.kind==='towel'){ g2.save(); g2.translate(p.x*d,p.y*d); g2.rotate(p.r); g2.fillStyle='#16b04e'; g2.fillRect(-14*d,-9*d,28*d,18*d); g2.fillStyle='rgba(255,255,255,.55)'; g2.fillRect(-14*d,-9*d,28*d,3*d); g2.restore(); }
+      else if(p.kind==='phone'){ g2.fillStyle='#e8f1ff'; g2.shadowColor='#bcd8ff'; g2.shadowBlur=14*d; g2.fillRect(p.x*d-3*d,p.y*d-5*d,6*d,10*d); g2.shadowBlur=0; }
+      else { g2.fillStyle=p.c; g2.beginPath(); g2.arc(p.x*d,p.y*d,p.s*d,0,7); g2.fill(); } }
+    g2.globalAlpha=1; raf= parts.length? requestAnimationFrame(tick):0; }
+  function go(){ if(!raf) raf=requestAnimationFrame(tick); }
+  function burst(n){ if(reduce) return; const r=stage.getBoundingClientRect(); const col=getComputedStyle(document.documentElement).getPropertyValue('--glow').trim()||'#fff';
+    for(let k=0;k<n;k++) parts.push({x:r.width/2,y:r.height*.42,vx:(Math.random()-.5)*14,vy:-Math.random()*10-2,g:.28,s:Math.random()*2.4+.8,c:Math.random()<.5?col:'#fff',life:60+Math.random()*40}); go(); }
+  function towels(){ const r=stage.getBoundingClientRect(); for(let k=0;k<(reduce?0:46);k++) parts.push({kind:'towel',x:Math.random()*r.width,y:-20-Math.random()*r.height*.6,vx:(Math.random()-.5)*1.5,vy:1.5+Math.random()*2,g:.03,r:Math.random()*6,spin:(Math.random()-.5)*.12,life:200});
+    showRig('green'); strip.textContent='Sable Valley green'; if(soundOn) play('roar',.6); go(); }
+  document.querySelectorAll('[data-towel]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation(); stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); setTimeout(towels,reduce?0:350);}));
+  let seq=''; document.addEventListener('keydown',e=>{ seq=(seq+e.key.toLowerCase()).slice(-2); if(seq==='sv') towels(); });
+  let phones=0; stage.addEventListener('click',e=>{ if(e.target.closest('a,button')) return; const r=stage.getBoundingClientRect(); phones++;
+    parts.push({kind:'phone',x:e.clientX-r.left,y:e.clientY-r.top,vx:0,vy:-.25,g:0,life:420}); go();
+    if(phones===11){ strip.textContent='11 phones up. 10/11.'; burst(60); } });
+
+  /* LAMINATE + KANDI */
+  const BEADS={'Brennan':'BRENBREN4EVR','Foster':'FANGSPEARE','Mason':'BESTFRIEND','Vermillion':'RIDEORDIE','Quinn':'QUINNAFTA','Kelly':'MOSHPIT2019','Kara':'ISOXOCORNER','Michelle':'RLCHELLE','Sable Valley':'SVFAMILY'};
+  const CUEQ={'Brennan':6,'Mason':8,'Quinn':10,'Vermillion':11,'Michelle':12,'Foster':13,'Sable Valley':14,'Kelly':15,'Kara':15};
+  const lamc=document.getElementById('lamc'), lg=lamc.getContext('2d'), lamImg=new Image(); lamImg.src='img/laminate.jpg';
+  let who='';
+  function drawLam(){ lg.clearRect(0,0,900,1269); if(lamImg.complete && lamImg.naturalWidth) lg.drawImage(lamImg,0,0,900,1269);
+    lg.fillStyle='#111'; lg.textAlign='center'; const nm=(who||'YOUR NAME HERE').toUpperCase();
+    let fs=118; lg.font='900 '+fs+'px Archivo, sans-serif'; while(lg.measureText(nm).width>660 && fs>40){ fs-=4; lg.font='900 '+fs+'px Archivo, sans-serif'; }
+    lg.fillText(nm,450,925); lg.font='700 40px Archivo, sans-serif';
+    lg.fillText(who? 'Your cue: Q'+CUEQ[who]+'. Press GO.' : 'Pick your name below', 450,1035);
+    lg.font='600 30px Archivo, sans-serif'; lg.fillStyle='#555'; lg.fillText('gordonusc.github.io/latenite',450,1120); }
+  lamImg.onload=drawLam; document.fonts && document.fonts.ready.then(drawLam);
+  const lam=document.getElementById('lam');
+  function foil(x,y){ lam.style.setProperty('--fx',x+'%'); lam.style.setProperty('--fy',y+'%'); lam.style.setProperty('--fa',(x*3.6)+'deg'); }
+  lam.addEventListener('pointermove',e=>{const r=lam.getBoundingClientRect(); foil((e.clientX-r.left)/r.width*100,(e.clientY-r.top)/r.height*100);});
+  addEventListener('deviceorientation',e=>{ if(e.gamma!=null) foil(50+e.gamma*1.4,40+((e.beta||45)-45)); });
+  const kandi=document.getElementById('kandi'), PONY=['#ff2a3a','#ffb000','#d7f03a','#2bd06a','#3fb8ff','#b48cff','#ff8fc2'];
+  function drawKandi(){ const word=(BEADS[who]||'PLUR'); const n=word.length, w=360, step=Math.min(28,(w-40)/(n+2)); const x0=w/2-step*(n+1)/2; let h='<path d="M10 60 Q180 118 350 60" stroke="#666" stroke-width="2" fill="none"/>';
+    const pts=[]; for(let k=0;k<n+2;k++){ const t=(k+.5)/(n+2); const x=x0+step*(k+.5); const y=60+Math.sin(t*Math.PI)*30; pts.push([x,y]); }
+    pts.forEach(([x,y],k)=>{ const letter= (k===0||k===n+1)? '' : word[k-1]; const col= letter? '#f4f1ea' : PONY[(k+who.length)%PONY.length];
+      h+=`<g class="bd" style="transition-delay:${k*45}ms"><rect x="${x-step/2+1}" y="${y-13}" width="${step-2}" height="26" rx="6" fill="${col}" stroke="#222" stroke-width="1"/>${letter?`<text x="${x}" y="${y}">${letter}</text>`:''}</g>`; });
+    kandi.innerHTML=h; kandi.setAttribute('aria-label','A kandi bracelet that spells '+word); }
+  const sel=document.getElementById('whosel');
+  function setWho(n){ who=n||''; sel.value=who; drawLam(); drawKandi(); }
+  sel.addEventListener('change',()=>{ setWho(sel.value); if(who){ light(who); } });
+  document.getElementById('trade').onclick=()=>{ const sp=[...document.querySelectorAll('#plur span')]; sp.forEach(x=>x.classList.remove('lit'));
+    sp.forEach((x,k)=>setTimeout(()=>{x.classList.add('lit'); if(soundOn) blip(PONY[k]);}, reduce?0:k*420)); };
+  document.getElementById('save').onclick=()=>{ drawLam(); lamc.toBlob(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='LATENITE-laminate'+(who?'-'+who.replace(/ /g,''):'')+'.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); },'image/png'); };
+  drawKandi();
+
+  /* PERSONAL LINKS: #brennan opens on your cue, your nights, your laminate. */
+  const H={'brennan':'Brennan','foster':'Foster','mason':'Mason','vermillion':'Vermillion','dave':'Vermillion','quinn':'Quinn','kelly':'Kelly','kara':'Kara','michelle':'Michelle','sablevalley':'Sable Valley','sv':'Sable Valley'};
+  const hk=decodeURIComponent(location.hash.slice(1)).toLowerCase().replace(/[^a-z]/g,''); const mine=H[hk];
+  if(mine){ setWho(mine); light(mine); const hb=document.createElement('div'); hb.className='hello'; hb.textContent= mine==='Sable Valley'? 'Sable Valley family, this one is yours. Press GO.' : mine+', this one is yours. Press GO, or jump to Q'+CUEQ[mine]+'.'; stage.parentNode.insertBefore(hb, stage); }
 
   setCue(0,false);
 })();
