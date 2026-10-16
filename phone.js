@@ -1,3 +1,7 @@
+/* FLASH CAP (phone and desk): a new color flash may start at most once every 334 ms, under 3 flashes a second
+   (WCAG 2.3.1), however fast someone taps. Releases always pass. Registered before desk.js, so it gates the arena too. */
+window.__flashOK=(()=>{ let last=-1e9; return ()=>{ const n=performance.now(); if(n-last<334) return false; last=n; return true; }; })();
+document.addEventListener('lx',e=>{ const d=e.detail||{}; if(d.type==='flash'&&d.on){ window.__flashBlocked=!window.__flashOK(); if(window.__flashBlocked) e.stopImmediatePropagation(); } });
 /* PERSONAL LINKS (phone and desk): #brennan, #foster, #sv and so on. The room greets them in their color with their name. */
 (()=>{
   const hk=decodeURIComponent(location.hash.slice(1)).toLowerCase().replace(/[^a-z]/g,''); if(!hk) return;
@@ -20,7 +24,7 @@
   const pads=document.createElement('div'); pads.className='pads'; pads.setAttribute('aria-label','Hold a color to flash it');
   const FL=[['#ff2a3a','red'],['#ff5a1a','orange'],['#ffb000','amber'],['#c8f02a','yellow green'],['#16c25a','green'],['#2f6bff','blue'],['#6a3cff','purple'],['#ff2fae','magenta'],['#f4efe6','white']];
   const glowNow=()=>getComputedStyle(document.querySelector('.cue[aria-current]')||document.body).getPropertyValue('--c')||'';
-  const flash=(b,on)=>{ b.classList.toggle('down',on); LX({type:'flash',on,col:b.dataset.c}); if(!H.classList.contains('live')) H.style.setProperty('--glow', on? b.dataset.c : glowNow()); };
+  const flash=(b,on)=>{ b.classList.toggle('down',on); LX({type:'flash',on,col:b.dataset.c}); if(!H.classList.contains('live')&&(!on||!window.__flashBlocked)) H.style.setProperty('--glow', on? b.dataset.c : glowNow()); };
   FL.forEach(([c,n])=>{ const b=document.createElement('button'); b.type='button'; b.className='pad'; b.style.setProperty('--f',c); b.dataset.c=c; b.setAttribute('aria-label','Flash '+n);
     b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);flash(b,true)});
     b.addEventListener('pointerup',()=>flash(b,false)); b.addEventListener('pointercancel',()=>flash(b,false));
