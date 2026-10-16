@@ -201,6 +201,7 @@ html.full,html.full body{height:100%}
 @media (prefers-reduced-motion:reduce){.flash.down{box-shadow:0 1px 0 #000}}
 
 /* PHONE ROOM */
+.kline{margin:4px 0 10px;font-size:18px;line-height:1.35;font-style:italic;min-height:1.4em;text-wrap:balance}
 .ph .stage .print{top:92px;bottom:auto!important;right:12px;width:96px}
 .ph body{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .ph .stage{height:calc(100svh - 150px - env(safe-area-inset-bottom,0px));min-height:430px;touch-action:pan-y;-webkit-user-select:none;user-select:none}
@@ -423,6 +424,7 @@ html.full,html.full body{height:100%}
       <p class="kh">Your laminate, and your kandi.</p>
       <label class="who">Whose night is this? <select id="whosel"><option value="">Pick your name</option><option>Brennan</option><option>Foster</option><option>Mason</option><option>Vermillion</option><option>Quinn</option><option>Kelly</option><option>Kara</option><option>Michelle</option><option>Sable Valley</option></select></label>
       <svg id="kandi" class="kandi" viewBox="0 0 360 120" role="img" aria-label="A kandi bracelet"></svg>
+      <p class="kline" id="kline" aria-live="polite"></p>
       <div class="plur" id="plur" aria-live="polite"><span>PEACE</span><span>LOVE</span><span>UNITY</span><span>RESPECT</span></div>
       <div class="kbtns"><button class="key trade" id="trade" type="button">TRADE KANDI</button><button class="key save" id="save" type="button">SAVE LAMINATE</button></div>
     </div>
@@ -538,7 +540,7 @@ html.full,html.full body{height:100%}
     if(phones===11){ strip.textContent='11 phones up. 10/11.'; burst(60); } });
 
   /* LAMINATE + KANDI */
-  const BEADS={'Brennan':'BRENBREN4EVR','Foster':'FANGSPEARE','Mason':'BESTFRIEND','Vermillion':'RIDEORDIE','Quinn':'QUINNAFTA','Kelly':'MOSHPIT2019','Kara':'ISOXOCORNER','Michelle':'RLCHELLE','Sable Valley':'SVFAMILY'};
+  const BEADS={"Brennan": "FOREVR", "Foster": "FANGSPEARE", "Mason": "PINKJERSEY", "Vermillion": "DIALARM", "Quinn": "SMACKTALK", "Kelly": "MOSHPIT", "Kara": "HOWTOFLY", "Michelle": "RLCHELLE", "Sable Valley": "SVFAMILY"}; const KLINE={"Brennan": "Brennan, a little 4EVR from me to you.", "Foster": "Foster, I'm giving FANGSPEARE the lights out moment.", "Mason": "Mason, that pink jersey gets its own bracelet from me!!", "Vermillion": "Dave, I've got a little sound di alarm for your wrist.", "Quinn": "Quinn, thanks for having me. This SMACK TALK is yours.", "Kara": "Kara, my little ISOxo corner has your name on it.", "Kelly": "Kelly, I'm putting that 2019 RL Grime mosh pit on your wrist.", "Michelle": "RLChelle, I've got your green towel moment right here.", "Sable Valley": "My Sable Valley family, this one's for all of you."};
   const CUEQ={'Brennan':6,'Mason':8,'Quinn':10,'Vermillion':11,'Michelle':12,'Foster':13,'Sable Valley':14,'Kelly':16,'Kara':15};
   const lamc=document.getElementById('lamc'), lg=lamc.getContext('2d'), lamImg=new Image(); lamImg.src='img/laminate.jpg';
   let who='';
@@ -558,7 +560,7 @@ html.full,html.full body{height:100%}
     const pts=[]; for(let k=0;k<n+2;k++){ const t=(k+.5)/(n+2); const x=x0+step*(k+.5); const y=60+Math.sin(t*Math.PI)*30; pts.push([x,y]); }
     pts.forEach(([x,y],k)=>{ const letter= (k===0||k===n+1)? '' : word[k-1]; const col= letter? '#f4f1ea' : PONY[(k+who.length)%PONY.length];
       h+=`<g class="bd" style="transition-delay:${k*45}ms"><rect x="${x-step/2+1}" y="${y-13}" width="${step-2}" height="26" rx="6" fill="${col}" stroke="#222" stroke-width="1"/>${letter?`<text x="${x}" y="${y}">${letter}</text>`:''}</g>`; });
-    kandi.innerHTML=h; kandi.setAttribute('aria-label','A kandi bracelet that spells '+word); }
+    kandi.innerHTML=h; kandi.setAttribute('aria-label','A kandi bracelet that spells '+word); const kl=document.getElementById('kline'); if(kl) kl.textContent=KLINE[who]||''; }
   const sel=document.getElementById('whosel');
   function setWho(n){ who=n||''; sel.value=who; drawLam(); drawKandi(); }
   sel.addEventListener('change',()=>{ setWho(sel.value); if(who){ light(who); } });
