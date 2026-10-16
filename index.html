@@ -64,6 +64,7 @@ a{color:var(--ink)}
 .go{background:var(--go);font-size:30px;min-width:120px}
 .back{background:#6d6a66;font-size:18px}
 .drop{background:var(--amber);font-size:16px;line-height:1.05}
+.drop.ask{animation:ask 1s ease-in-out infinite}@keyframes ask{50%{box-shadow:0 4px 0 #000,0 0 0 6px rgba(255,176,0,.45)}}@media (prefers-reduced-motion:reduce){.drop.ask{animation:none;outline:3px solid #fff}}
 .snd{background:#3a3a3e;color:#ddd;font-size:14px}
 .hint{color:var(--dim);font-size:14px;margin:8px 0 0}
 
@@ -390,7 +391,7 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
     cues.forEach(x=>x.removeAttribute('aria-current')); c.setAttribute('aria-current','true');
     const col=c.dataset.c; document.documentElement.style.setProperty('--glow',col);
     stage.style.backgroundColor='color-mix(in srgb, '+col+' 22%, #0b0a09)';
-    showRig(c.dataset.rig||'house');
+    showRig(c.dataset.rig||'house'); document.getElementById('drop').classList.toggle('ask', !!c.dataset.drop);
     const pr=document.getElementById('print');
     if(c.dataset.img){still.style.backgroundImage='url('+c.dataset.img+')';still.setAttribute('aria-label',c.dataset.alt||'');document.getElementById('printcap').textContent='my phone, '+c.querySelector('.t').textContent.trim();pr.hidden=false;pr.style.transform='rotate('+(((i*37)%7)-3)+'deg)';}
     else{pr.hidden=true;still.setAttribute('aria-label','');}
@@ -482,7 +483,7 @@ ol.nights{list-style:none;margin:0;padding:0;border-left:2px solid #2a2a2d}
     let fs=118; lg.font='900 '+fs+'px Archivo, sans-serif'; while(lg.measureText(nm).width>660 && fs>40){ fs-=4; lg.font='900 '+fs+'px Archivo, sans-serif'; }
     lg.fillText(nm,450,925); lg.font='700 40px Archivo, sans-serif';
     lg.fillText(who? 'Your cue: Q'+CUEQ[who]+'. Press GO.' : 'Pick your name below', 450,1035);
-    lg.font='600 30px Archivo, sans-serif'; lg.fillStyle='#555'; lg.fillText('gordonusc.github.io/latenite',450,1120); }
+    lg.font='600 30px Archivo, sans-serif'; lg.fillStyle='#555'; lg.fillText(who==='Brennan'? 'LYMI' : 'gordonusc.github.io/latenite',450,1120); }
   lamImg.onload=drawLam; document.fonts && document.fonts.ready.then(drawLam);
   const lam=document.getElementById('lam');
   function foil(x,y){ lam.style.setProperty('--fx',x+'%'); lam.style.setProperty('--fy',y+'%'); lam.style.setProperty('--fa',(x*3.6)+'deg'); }
