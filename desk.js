@@ -10,7 +10,7 @@
   stage.insertBefore(cv, stage.querySelector('.wash'));
 
   let R; try{ R=new T.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'}); }catch(e){ cv.remove(); return; }
-  R.setPixelRatio(Math.min(devicePixelRatio,1.75)); R.outputEncoding=T.sRGBEncoding; R.toneMapping=T.ACESFilmicToneMapping; R.toneMappingExposure=1.05;
+  R.setPixelRatio(Math.min(devicePixelRatio,innerWidth<700?1.35:1.75)); R.outputEncoding=T.sRGBEncoding; R.toneMapping=T.ACESFilmicToneMapping; R.toneMappingExposure=1.05;
   const S=new T.Scene(); const fogC=new T.Color(0x050506); S.fog=new T.FogExp2(fogC,0.022); S.background=fogC.clone();
   const cam=new T.PerspectiveCamera(58,1,0.1,400); cam.position.set(2.5,1.65,21.5);
   const look={yaw:0,pitch:0,ty:0,tp:0}; const base=new T.Vector3(0,7.2,0);
@@ -113,7 +113,7 @@
   addEventListener('pointerup',()=>{ if(drag&&drag.moved){ stage.dataset.dragged='1'; setTimeout(()=>delete stage.dataset.dragged,0); } drag=null; });
   stage.addEventListener('click',e=>{ if(stage.dataset.dragged){ e.stopImmediatePropagation(); } },true);
 
-  function size(){ const r=stage.getBoundingClientRect(); const w=Math.max(2,r.width|0), h=Math.max(2,r.height|0); R.setSize(w,h,false); comp.setSize(w,h); cam.aspect=w/h; cam.updateProjectionMatrix(); }
+  function size(){ const r=stage.getBoundingClientRect(); const w=Math.max(2,r.width|0), h=Math.max(2,r.height|0); R.setSize(w,h,false); comp.setSize(w,h); cam.aspect=w/h; cam.fov=w<h?82:58; cam.updateProjectionMatrix(); }
   new ResizeObserver(size).observe(stage); size();
 
   let last=performance.now(), visible=true; new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(stage);
