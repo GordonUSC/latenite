@@ -26,7 +26,7 @@ document.addEventListener('lx',e=>{ const d=e.detail||{}; if(d.type==='flash'&&d
   const glowNow=()=>getComputedStyle(document.querySelector('.cue[aria-current]')||document.body).getPropertyValue('--c')||'';
   const flash=(b,on)=>{ b.classList.toggle('down',on); LX({type:'flash',on,col:b.dataset.c}); if(!H.classList.contains('live')&&(!on||!window.__flashBlocked)) H.style.setProperty('--glow', on? b.dataset.c : glowNow()); };
   FL.forEach(([c,n])=>{ const b=document.createElement('button'); b.type='button'; b.className='pad'; b.style.setProperty('--f',c); b.dataset.c=c; b.setAttribute('aria-label','Flash '+n);
-    b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);flash(b,true)});
+    b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);flash(b,true); if(!window.__flashBlocked&&window.__sfx) window.__sfx('zap',.4);});
     b.addEventListener('pointerup',()=>flash(b,false)); b.addEventListener('pointercancel',()=>flash(b,false));
     b.addEventListener('contextmenu',e=>e.preventDefault()); pads.append(b); });
   bar.append(pads);

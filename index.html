@@ -449,7 +449,8 @@ html.full,html.full body{height:100%}
   function showRig(name){ if(name===curRig) return; curRig=name; const back= front===rigA? rigB: rigA; back.style.backgroundImage='url(img/rig-web/rig-'+name+'.jpg)'; back.classList.add('on'); front.classList.remove('on'); front=back;
     if(loop.dataset.src && name==='red' && !reduce && !document.documentElement.classList.contains('live')){ if(!loop.src) loop.src=loop.dataset.src; loop.classList.add('on'); loop.play().catch(()=>{}); } else { loop.classList.remove('on'); loop.pause(); } }
   const bufs={}; async function load(n){ if(bufs[n]||!ctx) return bufs[n]; try{ const r=await fetch('snd/'+n+'.mp3'); bufs[n]=await ctx.decodeAudioData(await r.arrayBuffer()); }catch(e){} return bufs[n]; }
-  async function play(n,vol){ if(!ctx) return; const b=await load(n); if(!b) return; const s=ctx.createBufferSource(), g=ctx.createGain(); g.gain.value=vol||1; s.buffer=b; s.connect(g).connect(ctx.destination); s.start(); }
+  async function play(n,vol,loopIt){ if(!ctx) return null; const b=await load(n); if(!b) return null; const s=ctx.createBufferSource(), g=ctx.createGain(); g.gain.value=vol||1; s.buffer=b; s.loop=!!loopIt; if(loopIt){ s.loopStart=.06; s.loopEnd=b.duration-.06; } s.connect(g).connect(ctx.destination); s.start(); return {s,g}; }
+  function fadeOut(r,t){ if(!r||!ctx) return; const now=ctx.currentTime; r.g.gain.cancelScheduledValues(now); r.g.gain.setValueAtTime(r.g.gain.value,now); r.g.gain.linearRampToValueAtTime(0,now+(t||.08)); try{ r.s.stop(now+(t||.08)+.02); }catch(e){} }
 
   const LX=d=>document.dispatchEvent(new CustomEvent('lx',{detail:d}));
   function setCue(n, fromUser){
@@ -466,7 +467,7 @@ html.full,html.full body{height:100%}
     what.textContent=c.querySelector('h3').textContent;
     const ps=c.querySelectorAll('.body > p:not(.src)'); forEl.textContent= ps.length? ps[0].textContent : '';
     strip.textContent=c.querySelector('.q').textContent+'  '+(c.dataset.who? 'for '+c.dataset.who : c.querySelector('h3').textContent);
-    if(fromUser && soundOn){ blip(col); play('haze',.35); }
+    if(fromUser && soundOn){ play('zap',.55); play('haze',.45); }
     if(fromUser){ const r=stage.getBoundingClientRect(); if(r.bottom<120) stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); }
   }
   document.getElementById('go').onclick=()=>{ if(i===cues.length-1){ houseUp(); } else setCue(i+1,true); };
@@ -485,19 +486,20 @@ html.full,html.full body{height:100%}
   /* HOLD DROP: hold to pull the room to black and build; release to slam the color back. */
   const dropBtn=document.getElementById('drop'); let holding=false, riser=null, t0=0;
   const blk=document.createElement('div'); blk.className='rig blk'; blk.style.backgroundImage='url(img/rig-web/rig-black.jpg)'; stage.insertBefore(blk, document.getElementById('loop'));
-  function holdStart(){ if(holding)return; holding=true; t0=performance.now(); LX({type:'hold'}); stage.classList.add('black'); if(soundOn) riser=startRiser(); }
+  function holdStart(){ if(holding)return; holding=true; t0=performance.now(); LX({type:'hold'}); stage.classList.add('black'); if(soundOn) play('riser',.8).then(r=>{ if(holding) riser=r; else fadeOut(r); }); }
   function holdEnd(){ if(!holding)return; holding=false; stage.classList.remove('black'); const held=(performance.now()-t0)/1000; LX({type:'release',held,rig:cues[i].dataset.rig});
     if(!reduce){ stage.animate([{filter:'brightness(2.2)'},{filter:'brightness(1)'}],{duration:500+Math.min(held,6)*120,easing:'ease-out'}); }
-    if(soundOn){ stopRiser(riser); slam(Math.min(held,6)); play('roar',.9); } if(held>1.2) burst(Math.min(40+held*20,160));
+    if(soundOn){ fadeOut(riser,.05); riser=null; play('drop',.9); setTimeout(()=>play('roar',.35+Math.min(held,6)*.08),180); } if(held>1.2) burst(Math.min(40+held*20,160));
     const dv=document.getElementById('dropv'); if(!reduce && !document.documentElement.classList.contains('live')){ dv.currentTime=0; dv.classList.add('on'); dv.play().catch(()=>{}); dv.onended=()=>dv.classList.remove('on'); } }
   dropBtn.addEventListener('pointerdown',e=>{e.preventDefault();dropBtn.setPointerCapture(e.pointerId);holdStart()});
   dropBtn.addEventListener('pointerup',holdEnd); dropBtn.addEventListener('pointercancel',holdEnd);
   dropBtn.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();holdStart()}});
   dropBtn.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();holdEnd()}});
 
-  /* Sound: synthesized here, off until asked for. */
+  /* Sound: designed in ElevenLabs (snd/*.mp3, flow N7Ynuyv2kTPWeOEVpN8s), off until asked for. */
   const sndBtn=document.getElementById('snd');
-  sndBtn.onclick=()=>{ soundOn=!soundOn; sndBtn.setAttribute('aria-pressed',soundOn); sndBtn.textContent= soundOn?'SOUND ON':'SOUND OFF'; if(soundOn&&!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx&&ctx.state==='suspended')ctx.resume(); };
+  sndBtn.onclick=()=>{ soundOn=!soundOn; sndBtn.setAttribute('aria-pressed',soundOn); sndBtn.textContent= soundOn?'SOUND ON':'SOUND OFF'; if(soundOn&&!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx&&ctx.state==='suspended')ctx.resume(); if(soundOn){ if(!bed) play('bed',.4,true).then(r=>{ if(soundOn) bed=r; else fadeOut(r); }); } else { fadeOut(bed,.4); bed=null; } };
+  let bed=null; window.__sfx=(n,v)=>{ if(soundOn) play(n,v); };
   function blip(col){ if(!ctx)return; const o=ctx.createOscillator(), g=ctx.createGain(); const h=parseInt(col.slice(1),16); o.type='triangle'; o.frequency.value=220+(h%440); g.gain.setValueAtTime(.0001,ctx.currentTime); g.gain.exponentialRampToValueAtTime(.12,ctx.currentTime+.01); g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.35); o.connect(g).connect(ctx.destination); o.start(); o.stop(ctx.currentTime+.4); }
   function startRiser(){ if(!ctx)return null; const len=ctx.sampleRate*8, b=ctx.createBuffer(1,len,ctx.sampleRate), d=b.getChannelData(0); for(let k=0;k<len;k++)d[k]=Math.random()*2-1; const s=ctx.createBufferSource(); s.buffer=b; const f=ctx.createBiquadFilter(); f.type='bandpass'; f.Q.value=4; f.frequency.setValueAtTime(300,ctx.currentTime); f.frequency.exponentialRampToValueAtTime(9000,ctx.currentTime+7); const g=ctx.createGain(); g.gain.setValueAtTime(.02,ctx.currentTime); g.gain.linearRampToValueAtTime(.18,ctx.currentTime+7); s.connect(f).connect(g).connect(ctx.destination); s.start(); return {s,g}; }
   function stopRiser(r){ if(!r)return; r.g.gain.cancelScheduledValues(ctx.currentTime); r.g.gain.setValueAtTime(r.g.gain.value,ctx.currentTime); r.g.gain.linearRampToValueAtTime(0,ctx.currentTime+.05); r.s.stop(ctx.currentTime+.06); }
