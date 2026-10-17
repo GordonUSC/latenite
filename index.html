@@ -467,7 +467,7 @@ html.full,html.full body{height:100%}
     what.textContent=c.querySelector('h3').textContent;
     const ps=c.querySelectorAll('.body > p:not(.src)'); forEl.textContent= ps.length? ps[0].textContent : '';
     strip.textContent=c.querySelector('.q').textContent+'  '+(c.dataset.who? 'for '+c.dataset.who : c.querySelector('h3').textContent);
-    if(fromUser && soundOn){ play('zap',.55); play('haze',.45); }
+    if(fromUser && soundOn){ if(c.dataset.who==='Foster') play('haze',.6); else { play('zap',.55); play('haze',.45); } }
     if(fromUser){ const r=stage.getBoundingClientRect(); if(r.bottom<120) stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); }
   }
   document.getElementById('go').onclick=()=>{ if(i===cues.length-1){ houseUp(); } else setCue(i+1,true); };
@@ -489,7 +489,7 @@ html.full,html.full body{height:100%}
   function holdStart(){ if(holding)return; holding=true; t0=performance.now(); LX({type:'hold'}); stage.classList.add('black'); if(soundOn) play('riser',.8).then(r=>{ if(holding) riser=r; else fadeOut(r); }); }
   function holdEnd(){ if(!holding)return; holding=false; stage.classList.remove('black'); const held=(performance.now()-t0)/1000; LX({type:'release',held,rig:cues[i].dataset.rig});
     if(!reduce){ stage.animate([{filter:'brightness(2.2)'},{filter:'brightness(1)'}],{duration:500+Math.min(held,6)*120,easing:'ease-out'}); }
-    if(soundOn){ fadeOut(riser,.05); riser=null; play('drop',.9); setTimeout(()=>play('roar',.35+Math.min(held,6)*.08),180); } if(held>1.2) burst(Math.min(40+held*20,160));
+    if(soundOn){ fadeOut(riser,.05); riser=null; if(cues[i].dataset.who==='Foster'){ play('fangspeare',1); setTimeout(()=>play('roar',.5),4200); } else { play('drop',.9); setTimeout(()=>play('roar',.35+Math.min(held,6)*.08),180); } } if(held>1.2) burst(Math.min(40+held*20,160));
     const dv=document.getElementById('dropv'); if(!reduce && !document.documentElement.classList.contains('live')){ dv.currentTime=0; dv.classList.add('on'); dv.play().catch(()=>{}); dv.onended=()=>dv.classList.remove('on'); } }
   dropBtn.addEventListener('pointerdown',e=>{e.preventDefault();dropBtn.setPointerCapture(e.pointerId);holdStart()});
   dropBtn.addEventListener('pointerup',holdEnd); dropBtn.addEventListener('pointercancel',holdEnd);
@@ -513,7 +513,7 @@ html.full,html.full body{height:100%}
     list.classList.add('lit'); nights.forEach(n=>n.classList.toggle('on',mine.includes(n)));
     you.textContent= mine.length? name+': '+mine.length+(mine.length===1?' night':' nights')+' in the file.' : (name==='Foster'? 'Foster: your nights in this file are still ahead. FANGSPEARE.' : name+': yours start here.'); }
   document.querySelectorAll('.band').forEach(b=>b.addEventListener('click',()=>(setWhoLate(b.textContent.trim()),light(b.textContent.trim()==='Vermillion'?'Vermillion':b.textContent.trim()))));
-  function setWhoLate(n){ setTimeout(()=>{ try{ setWho(n); if(soundOn) play('cheer',.8); }catch(e){} },0); }
+  function setWhoLate(n){ setTimeout(()=>{ try{ setWho(n); if(soundOn) play(n==='Foster'?'fangspeare':'cheer',n==='Foster'?.9:.8); }catch(e){} },0); }
   nights.forEach(n=>{ const go=()=>{ LX({type:'recall',col:n.dataset.c}); document.documentElement.style.setProperty('--glow',n.dataset.c); stage.style.backgroundColor='color-mix(in srgb, '+n.dataset.c+' 22%, #0b0a09)'; still.style.opacity='0';
       clock.textContent=n.dataset.d; what.textContent=n.querySelector('.ne b').textContent; const q=n.querySelector('.qt'); forEl.textContent=q?q.textContent:n.querySelector('.ne').textContent; strip.textContent='Recall '+n.dataset.d;
       stage.scrollIntoView({behavior:reduce?'auto':'smooth'}); };
