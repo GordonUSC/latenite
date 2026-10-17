@@ -498,7 +498,7 @@ html.full,html.full body{height:100%}
 
   /* Sound: designed in ElevenLabs (snd/*.mp3, flow N7Ynuyv2kTPWeOEVpN8s), off until asked for. */
   const sndBtn=document.getElementById('snd');
-  sndBtn.onclick=()=>{ soundOn=!soundOn; sndBtn.setAttribute('aria-pressed',soundOn); sndBtn.textContent= soundOn?'SOUND ON':'SOUND OFF'; if(soundOn&&!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx&&ctx.state==='suspended')ctx.resume(); if(soundOn){ if(!bed) play('bed',.4,true).then(r=>{ if(soundOn) bed=r; else fadeOut(r); }); } else { fadeOut(bed,.4); bed=null; } };
+  sndBtn.onclick=()=>{ try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){} soundOn=!soundOn; sndBtn.setAttribute('aria-pressed',soundOn); sndBtn.textContent= soundOn?'SOUND ON':'SOUND OFF'; if(soundOn&&!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();} if(ctx&&ctx.state==='suspended')ctx.resume(); if(soundOn){ if(!bed) play('bed',.4,true).then(r=>{ if(soundOn) bed=r; else fadeOut(r); }); } else { fadeOut(bed,.4); bed=null; } };
   let bed=null; window.__sfx=(n,v)=>{ if(soundOn) play(n,v); };
   function blip(col){ play('bead',.45); }
 
