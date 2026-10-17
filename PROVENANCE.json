@@ -1,0 +1,126 @@
+{
+ "snd/haze.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "haze machine hiss (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/zap.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "laser zap (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/riser.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "8 s EDM riser (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/drop.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "bass drop impact (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/roar.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "festival crowd roar (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/cheer.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "crowd cheer (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/bed.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "arena bed loop 10 s (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/fangspeare.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "The Freeze VO and wubs stinger (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "snd/bead.mp3": {
+  "tool": "elevenlabs",
+  "prompt": "kandi bead click chime (flow N7Ynuyv2kTPWeOEVpN8s)"
+ },
+ "img/beams-red-poster.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/beams-red.mp4": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c1-2336.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c2-2340.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c3-0105.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c4-0109.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c5-0123a.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/c5-0123b.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/drop.mp4": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/laminate.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-amber.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-black.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-blue.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-green.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-house.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-magenta.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-orange.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-purple.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-red.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-violet.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-white.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ },
+ "img/rig-web/rig-yellowgreen.jpg": {
+  "tool": "gordon-photo",
+  "prompt": "Gordon's own show photo or venue rig render already on the live site; not a generated asset (sound pass only, 2026-10-17)"
+ }
+}
